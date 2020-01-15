@@ -1,9 +1,14 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "clean": "lerna clean"
+  },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
+    "umi": "^2.13.1",
+    "umi-types": "^0.5.12"
   }
 }

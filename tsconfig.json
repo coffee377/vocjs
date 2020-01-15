@@ -1,18 +1,16 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "jsx": "react",
     "module": "esnext",
     "target": "es6",
+    "lib": ["esnext"],
+    "sourceMap": false,
+    "baseUrl": ".",
+    "jsx": "react",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
     "allowJs": false,
     "noUnusedLocals": true,
     "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": false,
-    "declaration": true,
-    "baseUrl": ".",
-    "paths": {
-    }
+    "preserveConstEnums": true
   }
 }

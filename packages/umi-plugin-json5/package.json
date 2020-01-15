@@ -1,0 +1,48 @@
+{
+  "name": "umi-plugin-json5",
+  "version": "0.0.1",
+  "description": "umi json5 loader plugin",
+  "keywords": [
+    "umi",
+    "json5",
+    "loader"
+  ],
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "start:mini": "cross-env UMI_UI=1 APP_ROOT=$PWD/example umi dev",
+    "start": "cross-env CURRENT_PROJECT=example umi ui",
+    "build": "father-build",
+    "prepublishOnly": "npm run build && np --no-cleanup --yolo --no-publish"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "author": "WuYujie <coffee377@dingtalk.com>",
+  "homepage": "https://github.com/coffee377/vocjs#readme",
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coffee377/vocjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/coffee377/vocjs/issues"
+  },
+  "peerDependencies": {
+    "antd": "4.x",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "umi": "2.x || ^2.9.0-0"
+  },
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "father-build": "^1.17.2",
+    "np": "^5.0.3"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "json5-loader": "^3.0.0"
+  }
+}
