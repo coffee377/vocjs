@@ -1,4 +1,4 @@
-# umi-plugin-jison5
+# umi-plugin-json5
 
 [![NPM version](https://img.shields.io/npm/v/umi-plugin-jison5.svg?style=flat)](https://npmjs.org/package/umi-plugin-jison5)
 [![NPM downloads](http://img.shields.io/npm/dm/umi-plugin-jison5.svg?style=flat)](https://npmjs.org/package/umi-plugin-jison5)

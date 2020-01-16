@@ -6,8 +6,10 @@ const lib: IBundleOptions = {
   //   importLibToEs: true,
   //   minify: true,
   // },
+  target: 'node',
   cjs: {
     type: 'babel',
+    lazy: true,
     minify: true,
   },
   // umd: {
