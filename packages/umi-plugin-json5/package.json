@@ -12,14 +12,14 @@
   ],
   "scripts": {
     "start": "cross-env APP_ROOT=./example umi dev",
-    "prepublishOnly": "npm run build && np --no-cleanup --yolo --no-publish"
+    "build": "father-build",
+    "build:watch": "father-build --watch"
   },
   "main": "lib/index.js",
   "types": "lib/index",
   "author": "WuYujie <coffee377@dingtalk.com>",
-  "homepage": "https://github.com/coffee377/vocjs#readme",
+  "homepage": "https://github.com/coffee377/vocjs/blob/master/packages/umi-plugin-json5/README.md",
   "publishConfig": {
-    "registry": "http://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
@@ -40,5 +40,6 @@
   "license": "MIT",
   "dependencies": {
     "json5-loader": "^3.0.0"
-  }
+  },
+  "gitHead": "fdec3e7553d2cf241a6ffe75b6501d6a9cc368cd"
 }

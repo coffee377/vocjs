@@ -3,16 +3,19 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "father-build",
-    "build:watch": "father-build --watch",
+    "build": "lerna run build",
+    "build:watch": "lerna run build:watch",
+    "publish": "node scripts/publish.ts",
     "clean": "lerna clean -y"
   },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
+    "@types/shelljs": "^0.8.6",
     "cross-env": "^6.0.3",
     "father-build": "^1.17.2",
+    "shelljs": "^0.8.3",
     "umi": "^2.13.1",
     "umi-types": "^0.5.12"
   }
