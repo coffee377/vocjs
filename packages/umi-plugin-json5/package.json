@@ -1,6 +1,6 @@
 {
   "name": "umi-plugin-json5",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "umi json5 loader plugin",
   "keywords": [
     "umi",
@@ -19,8 +19,7 @@
   "types": "lib/index",
   "author": "WuYujie <coffee377@dingtalk.com>",
   "homepage": "https://github.com/coffee377/vocjs/blob/master/packages/umi-plugin-json5/README.md",
-  "publishConfig": {
-  },
+  "publishConfig": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/coffee377/vocjs.git"
