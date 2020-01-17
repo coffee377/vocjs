@@ -4,7 +4,6 @@
     "target": "es6",
     "lib": ["esnext"],
     "sourceMap": false,
-    "baseUrl": ".",
     "jsx": "react",
     "esModuleInterop": true,
     "moduleResolution": "node",

@@ -1,14 +1,16 @@
 // ref:
 // - https://umijs.org/plugin/develop.html
+// eslint-disable-next-line import/no-unresolved
 import { IApi } from 'umi-types';
+
 export interface Json5Options {
   [name: string]: any;
 }
 
 const JSON5Loader = (api: IApi, opts: Json5Options) => {
-
   // 监听插件配置变化
   api.onOptionChange(newOpts => {
+    // eslint-disable-next-line no-param-reassign
     opts = newOpts;
     api.rebuildTmpFiles();
   });

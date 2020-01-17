@@ -109,7 +109,7 @@ dist
 **/*/node_modules
 **/*.lock
 **/lib
-**/esm
+**/es
 **/dist
 /node_modules
 **/yarn.lock

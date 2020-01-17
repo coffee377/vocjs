@@ -5,7 +5,6 @@
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
     "build:watch": "lerna run build:watch",
-    "publish": "node scripts/publish.ts",
     "clean": "lerna clean -y"
   },
   "workspaces": [
