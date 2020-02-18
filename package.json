@@ -1,5 +1,5 @@
 {
-  "name": "root",
+  "name": "vocjs",
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
@@ -11,11 +11,9 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@types/shelljs": "^0.8.6",
     "cross-env": "^6.0.3",
-    "father-build": "^1.17.2",
     "shelljs": "^0.8.3",
-    "umi": "^2.13.1",
-    "umi-types": "^0.5.12"
+    "@umijs/fabric": "^2.0.0",
+    "prettier": "^1.19.1"
   }
 }

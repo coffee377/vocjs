@@ -6,7 +6,8 @@
     "declarationDir": "types",
     "baseUrl": ".",
     "paths": {
-      "*/*": ["../../node_modules/types/*"]
-    }
+      "gulp-babel": ["./types/gulp-babel/index.d.ts"]
+    },
+    "typeRoots": ["@types", "./types"]
   }
 }
