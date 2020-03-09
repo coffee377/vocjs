@@ -1,0 +1,21 @@
+import { Compiler } from 'webpack';
+
+export interface Options {
+  out?: string;
+  moduleName?: string;
+  name?: string;
+  age?: number;
+}
+const NAME = 'DemoPlugin';
+export class DemoPlugin {
+  out: string;
+
+  moduleName: string;
+
+  constructor(options: Options = {}) {
+    this.out = options.out ? `${options.out}/index.d.ts` : `./index.d.ts`;
+    this.moduleName = options.moduleName;
+  }
+
+  apply = (compiler: Compiler) => {};
+}

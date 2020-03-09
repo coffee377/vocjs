@@ -1,0 +1,62 @@
+import BabelCore, { PluginObj, NodePath } from '@babel/core';
+
+interface PluginOptions {
+  env: string;
+  moduleName?: string;
+  removeMethods?: Array<string | Function>;
+  additionalStyleMethods?: { [key: string]: string };
+}
+
+interface DtsTransformState {
+  opts: PluginOptions;
+  file: any;
+}
+
+// https://github.com/yolodev/babel-dts-generator/blob/master/src/plugin.js
+// https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/plugin-handbook.md#toc-visitors
+
+const dtsPlugin = (babel: typeof BabelCore): PluginObj<DtsTransformState> => {
+  const { types } = babel;
+  return {
+    name: 'dts-plugin',
+    pre(state: any): void {
+      console.log('dts 插件转换前 filename', state.opts.filename);
+    },
+    visitor: {
+      ExportNamedDeclaration(path: NodePath, state) {
+        // todo
+        console.log(path.type, path.node);
+      },
+      ExportDefaultDeclaration(path: NodePath, state){
+
+      },
+      // ImportDeclaration(path: NodePath, state) {
+      //       //   // todo
+      //       // },
+      //       // Identifier(path: NodePath, state: any) {
+      //       //   // (path.node as Identifier).name
+      //       //   if (types.isVariableDeclaration(path.node)) {
+      //       //   }
+      //       //
+      //       //   const { opts = {} } = state;
+      //       //   // console.log('插件传递的参数', opts);
+      //       //   // path!!.node!!.name = 'ddd';
+      //       // },
+      // ASTNodeTypeHere(path: any, state: any) {},
+      Program: {
+        enter: (path: NodePath, state) => {
+          console.log('程序运行开始');
+        },
+        exit: (path: NodePath, state) => {
+          console.log('程序运行结束，生成 dts 文件');
+          // writeFileSync('meta.outpath', 'output');
+        },
+      },
+    },
+    post(state: any): void {
+      console.log('dts 插件转换后 filename', state.opts.filename);
+    },
+  };
+};
+
+export default dtsPlugin;

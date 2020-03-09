@@ -2,3 +2,4 @@
 packages/**/es
 packages/**/dist
 packages/**/lib
+**/*.d.ts

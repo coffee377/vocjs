@@ -56,6 +56,12 @@
     "@types/lodash": "^4.14.149",
     "@types/rimraf": "^2.0.3",
     "@types/through2": "^2.0.34",
-    "@types/vinyl-fs": "^2.4.11"
+    "@types/vinyl-fs": "^2.4.11",
+    "@types/webpack-dev-server": "^3.10.0",
+    "@types/webpack-merge": "^4.1.5",
+    "camelcase": "^5.3.1",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.1",
+    "webpack-cli": "^3.3.11"
   }
 }
