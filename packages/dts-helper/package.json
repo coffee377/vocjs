@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
-  "types": "index.d.ts",
+  "types": "types/index.d.ts",
   "scripts": {
-    "build": "babel src -d lib -x .ts -w",
+    "build": "babel src -d lib -x .ts",
+    "build:watch": "babel src -d lib -x .ts -w",
     "test": "jest"
   },
   "keywords": [],
