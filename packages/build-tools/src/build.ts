@@ -2,8 +2,8 @@ import { merge } from 'lodash';
 import rimraf from 'rimraf';
 import chalk from 'chalk';
 import { join } from 'path';
-// eslint-disable-next-line import/no-unresolved
-import { BundleType, IBundleOptions, ICjs, IEsm, IOpts, IUmd } from './types';
+// eslint-disable-next-line import/no-unresolved,import/named
+import { BundleType, IBundleOptions, ICjs, IEsm, IOpts, IUmd } from '../types';
 import { getExistFile } from './utils';
 import getUserConfig, { CONFIG_FILES } from './getUserConfig';
 import registerBabel from './registerBabel';

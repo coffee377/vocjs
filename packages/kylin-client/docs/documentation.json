@@ -1,0 +1,1750 @@
+{
+	"id": 0,
+	"name": "Kylin Documentation",
+	"kind": 0,
+	"flags": {},
+	"children": [
+		{
+			"id": 81,
+			"name": "Client",
+			"kind": 128,
+			"kindString": "Class",
+			"flags": {
+				"isExported": true
+			},
+			"children": [
+				{
+					"id": 83,
+					"name": "constructor",
+					"kind": 512,
+					"kindString": "Constructor",
+					"flags": {
+						"isExported": true
+					},
+					"signatures": [
+						{
+							"id": 84,
+							"name": "new Client",
+							"kind": 16384,
+							"kindString": "Constructor signature",
+							"flags": {
+								"isExported": true
+							},
+							"parameters": [
+								{
+									"id": 85,
+									"name": "config",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExported": true,
+										"isOptional": true
+									},
+									"type": {
+										"type": "reference",
+										"id": 1,
+										"name": "KylinConfig"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 81,
+								"name": "Client"
+							}
+						}
+					],
+					"sources": [
+						{
+							"fileName": "client.ts",
+							"line": 10,
+							"character": 31
+						}
+					]
+				},
+				{
+					"id": 82,
+					"name": "iConfig",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isPrivate": true,
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "client.ts",
+							"line": 10,
+							"character": 17
+						}
+					],
+					"type": {
+						"type": "reference",
+						"id": 1,
+						"name": "KylinConfig"
+					}
+				},
+				{
+					"id": 86,
+					"name": "config",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isExported": true
+					},
+					"signatures": [
+						{
+							"id": 87,
+							"name": "config",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {
+								"isExported": true
+							},
+							"parameters": [
+								{
+									"id": 88,
+									"name": "kylinConfig",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExported": true,
+										"isOptional": true
+									},
+									"type": {
+										"type": "reference",
+										"id": 1,
+										"name": "KylinConfig"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "void"
+							}
+						}
+					],
+					"sources": [
+						{
+							"fileName": "client.ts",
+							"line": 16,
+							"character": 8
+						}
+					]
+				},
+				{
+					"id": 89,
+					"name": "query",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isExported": true
+					},
+					"signatures": [
+						{
+							"id": 90,
+							"name": "query",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {
+								"isExported": true
+							},
+							"parameters": [
+								{
+									"id": 91,
+									"name": "options",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExported": true
+									},
+									"type": {
+										"type": "reference",
+										"id": 9,
+										"name": "QueryOptions"
+									}
+								},
+								{
+									"id": 92,
+									"name": "kylinConfig",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExported": true,
+										"isOptional": true
+									},
+									"type": {
+										"type": "reference",
+										"id": 1,
+										"name": "KylinConfig"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "reference",
+										"id": 54,
+										"name": "Result"
+									}
+								],
+								"name": "Promise"
+							}
+						}
+					],
+					"sources": [
+						{
+							"fileName": "client.ts",
+							"line": 20,
+							"character": 7
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Constructors",
+					"kind": 512,
+					"children": [
+						83
+					]
+				},
+				{
+					"title": "Properties",
+					"kind": 1024,
+					"children": [
+						82
+					]
+				},
+				{
+					"title": "Methods",
+					"kind": 2048,
+					"children": [
+						86,
+						89
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "client.ts",
+					"line": 9,
+					"character": 27
+				}
+			]
+		},
+		{
+			"id": 15,
+			"name": "ColumnMeta",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {
+				"isExported": true
+			},
+			"comment": {
+				"shortText": "字段元数据信息"
+			},
+			"children": [
+				{
+					"id": 28,
+					"name": "autoIncrement",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 84,
+							"character": 15
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 29,
+					"name": "caseSensitive",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 85,
+							"character": 15
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 21,
+					"name": "catelogName",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 77,
+							"character": 13
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 25,
+					"name": "columnType",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 81,
+							"character": 12
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 26,
+					"name": "columnTypeName",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 82,
+							"character": 16
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 30,
+					"name": "currency",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 86,
+							"character": 10
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 31,
+					"name": "definitelyWritable",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 87,
+							"character": 20
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 17,
+					"name": "displaySize",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 73,
+							"character": 13
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 16,
+					"name": "isNullable",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 72,
+							"character": 12
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 18,
+					"name": "label",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 74,
+							"character": 7
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 19,
+					"name": "name",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 75,
+							"character": 6
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 23,
+					"name": "precision",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 79,
+							"character": 11
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 27,
+					"name": "readOnly",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 83,
+							"character": 10
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 24,
+					"name": "scale",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 80,
+							"character": 7
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 20,
+					"name": "schemaName",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 76,
+							"character": 12
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 32,
+					"name": "searchable",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 88,
+							"character": 12
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 33,
+					"name": "signed",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 89,
+							"character": 8
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 22,
+					"name": "tableName",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 78,
+							"character": 11
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 34,
+					"name": "writable",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 90,
+							"character": 10
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"kind": 1024,
+					"children": [
+						28,
+						29,
+						21,
+						25,
+						26,
+						30,
+						31,
+						17,
+						16,
+						18,
+						19,
+						23,
+						27,
+						24,
+						20,
+						32,
+						33,
+						22,
+						34
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "types.ts",
+					"line": 71,
+					"character": 27
+				}
+			]
+		},
+		{
+			"id": 1,
+			"name": "KylinConfig",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {
+				"isExported": true
+			},
+			"comment": {
+				"shortText": "客户端配置"
+			},
+			"children": [
+				{
+					"id": 3,
+					"name": "host",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"comment": {
+						"tags": [
+							{
+								"tag": "description",
+								"text": "主机名或 IP"
+							},
+							{
+								"tag": "default",
+								"text": "localhost\n"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 13,
+							"character": 6
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 2,
+					"name": "https",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"comment": {
+						"tags": [
+							{
+								"tag": "description",
+								"text": "是否 https 服务"
+							},
+							{
+								"tag": "default",
+								"text": "false\n"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 7,
+							"character": 7
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 7,
+					"name": "password",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"comment": {
+						"tags": [
+							{
+								"tag": "description",
+								"text": "密码"
+							},
+							{
+								"tag": "default",
+								"text": "KYLIN\n"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 37,
+							"character": 10
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 4,
+					"name": "port",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"comment": {
+						"tags": [
+							{
+								"tag": "description",
+								"text": "端口号"
+							},
+							{
+								"tag": "default",
+								"text": "7070\n"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 19,
+							"character": 6
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 5,
+					"name": "queryApiPath",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"comment": {
+						"tags": [
+							{
+								"tag": "description",
+								"text": "查询 api 路径地址"
+							},
+							{
+								"tag": "default",
+								"text": "/kylin/api/query\n"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 25,
+							"character": 14
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 8,
+					"name": "rawData",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"comment": {
+						"tags": [
+							{
+								"tag": "description",
+								"text": "是否响应原始数据"
+							},
+							{
+								"tag": "default",
+								"text": "false\n"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 43,
+							"character": 9
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 6,
+					"name": "username",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"comment": {
+						"tags": [
+							{
+								"tag": "description",
+								"text": "用户名"
+							},
+							{
+								"tag": "default",
+								"text": "ADMIN\n"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 31,
+							"character": 10
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"kind": 1024,
+					"children": [
+						3,
+						2,
+						7,
+						4,
+						5,
+						8,
+						6
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "types.ts",
+					"line": 2,
+					"character": 28
+				}
+			]
+		},
+		{
+			"id": 9,
+			"name": "QueryOptions",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {
+				"isExported": true
+			},
+			"comment": {
+				"shortText": "查询配置"
+			},
+			"children": [
+				{
+					"id": 13,
+					"name": "acceptPartial",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"comment": {
+						"shortText": "optional bool Whether accept a partial result or not, default be “false”. Set to “false” for production use."
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 63,
+							"character": 15
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 12,
+					"name": "limit",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"comment": {
+						"shortText": "optional int Query limit. If limit is set in sql, perPage will be ignored."
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 59,
+							"character": 7
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 11,
+					"name": "offset",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"comment": {
+						"shortText": "optional int Query offset. If offset is set in sql, curIndex will be ignored."
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 55,
+							"character": 8
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 14,
+					"name": "project",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"comment": {
+						"shortText": "optional string Project to perform query. Default value is ‘DEFAULT’."
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 67,
+							"character": 9
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 10,
+					"name": "sql",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"comment": {
+						"shortText": "required string The text of sql statement."
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 51,
+							"character": 5
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"kind": 1024,
+					"children": [
+						13,
+						12,
+						11,
+						14,
+						10
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "types.ts",
+					"line": 47,
+					"character": 29
+				}
+			]
+		},
+		{
+			"id": 35,
+			"name": "RawResult",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {
+				"isExported": true
+			},
+			"comment": {
+				"shortText": "原始响应结果"
+			},
+			"children": [
+				{
+					"id": 41,
+					"name": "affectedRowCount",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 100,
+							"character": 18
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 38,
+					"name": "columnMetas",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 97,
+							"character": 13
+						}
+					],
+					"type": {
+						"type": "array",
+						"elementType": {
+							"type": "reference",
+							"id": 15,
+							"name": "ColumnMeta"
+						}
+					}
+				},
+				{
+					"id": 40,
+					"name": "cube",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 99,
+							"character": 6
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 44,
+					"name": "duration",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 103,
+							"character": 10
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 37,
+					"name": "exception",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 96,
+							"character": 11
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 43,
+					"name": "exceptionMessage",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 102,
+							"character": 18
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 46,
+					"name": "hitExceptionCache",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 105,
+							"character": 19
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 42,
+					"name": "isException",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 101,
+							"character": 13
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 48,
+					"name": "partial",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 107,
+							"character": 9
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 39,
+					"name": "results",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 98,
+							"character": 9
+						}
+					],
+					"type": {
+						"type": "array",
+						"elementType": {
+							"type": "array",
+							"elementType": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					}
+				},
+				{
+					"id": 47,
+					"name": "storageCacheUsed",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 106,
+							"character": 18
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 45,
+					"name": "totalScanCount",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 104,
+							"character": 16
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 36,
+					"name": "url",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 95,
+							"character": 5
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"kind": 1024,
+					"children": [
+						41,
+						38,
+						40,
+						44,
+						37,
+						43,
+						46,
+						42,
+						48,
+						39,
+						47,
+						45,
+						36
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "types.ts",
+					"line": 94,
+					"character": 26
+				}
+			]
+		},
+		{
+			"id": 49,
+			"name": "WrapperResult",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {
+				"isExported": true
+			},
+			"comment": {
+				"shortText": "包装响应结果"
+			},
+			"children": [
+				{
+					"id": 52,
+					"name": "columnNames",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"comment": {
+						"shortText": "字段名称"
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 123,
+							"character": 13
+						}
+					],
+					"type": {
+						"type": "array",
+						"elementType": {
+							"type": "intrinsic",
+							"name": "string"
+						}
+					}
+				},
+				{
+					"id": 53,
+					"name": "columnValues",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"comment": {
+						"shortText": "字段值"
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 127,
+							"character": 14
+						}
+					],
+					"type": {
+						"type": "array",
+						"elementType": {
+							"type": "array",
+							"elementType": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					}
+				},
+				{
+					"id": 51,
+					"name": "message",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"comment": {
+						"shortText": "错误信息"
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 119,
+							"character": 9
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 50,
+					"name": "success",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"comment": {
+						"shortText": "是否成功"
+					},
+					"sources": [
+						{
+							"fileName": "types.ts",
+							"line": 115,
+							"character": 9
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"kind": 1024,
+					"children": [
+						52,
+						53,
+						51,
+						50
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "types.ts",
+					"line": 111,
+					"character": 30
+				}
+			]
+		},
+		{
+			"id": 54,
+			"name": "Result",
+			"kind": 4194304,
+			"kindString": "Type alias",
+			"flags": {
+				"isExported": true
+			},
+			"comment": {
+				"shortText": "客户端响应结果"
+			},
+			"sources": [
+				{
+					"fileName": "types.ts",
+					"line": 131,
+					"character": 18
+				}
+			],
+			"type": {
+				"type": "union",
+				"types": [
+					{
+						"type": "reference",
+						"id": 35,
+						"name": "RawResult"
+					},
+					{
+						"type": "reference",
+						"id": 49,
+						"name": "WrapperResult"
+					}
+				]
+			}
+		},
+		{
+			"id": 93,
+			"name": "client",
+			"kind": 32,
+			"kindString": "Variable",
+			"flags": {
+				"isExported": true,
+				"isConst": true
+			},
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 4,
+					"character": 12
+				}
+			],
+			"type": {
+				"type": "reference",
+				"id": 81,
+				"name": "Client"
+			},
+			"defaultValue": "new Client()"
+		},
+		{
+			"id": 94,
+			"name": "config",
+			"kind": 64,
+			"kindString": "Function",
+			"flags": {
+				"isExported": true
+			},
+			"signatures": [
+				{
+					"id": 95,
+					"name": "config",
+					"kind": 4096,
+					"kindString": "Call signature",
+					"flags": {
+						"isExported": true
+					},
+					"parameters": [
+						{
+							"id": 96,
+							"name": "kylinConfig",
+							"kind": 32768,
+							"kindString": "Parameter",
+							"flags": {
+								"isExported": true,
+								"isOptional": true
+							},
+							"type": {
+								"type": "reference",
+								"id": 1,
+								"name": "KylinConfig"
+							}
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "void"
+					}
+				}
+			],
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 8,
+					"character": 22
+				}
+			]
+		},
+		{
+			"id": 97,
+			"name": "query",
+			"kind": 64,
+			"kindString": "Function",
+			"flags": {
+				"isExported": true
+			},
+			"signatures": [
+				{
+					"id": 98,
+					"name": "query",
+					"kind": 4096,
+					"kindString": "Call signature",
+					"flags": {
+						"isExported": true
+					},
+					"parameters": [
+						{
+							"id": 99,
+							"name": "options",
+							"kind": 32768,
+							"kindString": "Parameter",
+							"flags": {
+								"isExported": true
+							},
+							"type": {
+								"type": "reference",
+								"id": 9,
+								"name": "QueryOptions"
+							}
+						},
+						{
+							"id": 100,
+							"name": "kylinConfig",
+							"kind": 32768,
+							"kindString": "Parameter",
+							"flags": {
+								"isExported": true,
+								"isOptional": true
+							},
+							"type": {
+								"type": "reference",
+								"id": 1,
+								"name": "KylinConfig"
+							}
+						}
+					],
+					"type": {
+						"type": "reference",
+						"typeArguments": [
+							{
+								"type": "reference",
+								"id": 54,
+								"name": "Result"
+							}
+						],
+						"name": "Promise"
+					}
+				}
+			],
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 12,
+					"character": 21
+				}
+			]
+		}
+	],
+	"groups": [
+		{
+			"title": "Classes",
+			"kind": 128,
+			"children": [
+				81
+			]
+		},
+		{
+			"title": "Interfaces",
+			"kind": 256,
+			"children": [
+				15,
+				1,
+				9,
+				35,
+				49
+			]
+		},
+		{
+			"title": "Type aliases",
+			"kind": 4194304,
+			"children": [
+				54
+			]
+		},
+		{
+			"title": "Variables",
+			"kind": 32,
+			"children": [
+				93
+			]
+		},
+		{
+			"title": "Functions",
+			"kind": 64,
+			"children": [
+				94,
+				97
+			]
+		}
+	]
+}
