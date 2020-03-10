@@ -6,15 +6,9 @@
   "main": "lib/index.js",
   "module": "esm/index.js",
   "types": "types/index.d.ts",
-  "files": [
-    "dist",
-    "esm",
-    "lib",
-    "types"
-  ],
+  "files": ["dist", "docs", "esm", "lib", "types"],
   "scripts": {
     "build": "node bin/build.js",
-    "docs": "typedoc",
     "test": "jest"
   },
   "keywords": [],

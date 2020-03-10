@@ -88,6 +88,6 @@ if (project) {
 }
 
 // dts
-// const dts = require('dts-helper').default;
+const dts = require('dts-helper').default;
 
-// dts({}).catch();
+dts({}).catch();

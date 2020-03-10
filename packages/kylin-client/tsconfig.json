@@ -3,18 +3,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
-    //    "emitDeclarationOnly": true,
-    // don't emit,allow babel to transform files
-    //    "noEmit": false,
-//    "declaration": false,
-//    "removeComments": true
-//        "outDir": "ts",
-//        "declarationDir": "types2"
-    //    "outFile": "index.d.ts"
-    //    "baseUrl": ".",
-    //    "paths": {}
+    "esModuleInterop": true,
+    "baseUrl": "."
   },
-  "include": ["src", "types"],
-  "exclude": ["types"]
+  "include": ["src", "types"]
 }

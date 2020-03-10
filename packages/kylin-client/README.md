@@ -1,3 +1,77 @@
+### Usage
 
-### 全局安装 
+#### NodeJS
 
+```js
+import client from 'kylin-client';
+// or
+//const client = require('kylin-client')
+
+client.config({ host: '192.168.44.84' });
+
+const result = client.query({
+  project: 'hospital_project',
+  sql:
+    'select quarter,sum(amount) as 销售额,count(*) as 刷卡次数, ' +
+    'sum(amount)/count(*) as 次均消费 from ncms_hospital_ana_2 ' +
+    'where date_year = 2019 group by quarter order by quarter asc',
+});
+
+result
+  .then(data => {
+    // TODO
+  })
+  .catch(err => {
+    // TODO
+  });
+```
+
+#### HTML
+
+```html
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kylin Client</title>
+    <script src="../dist/kylin-client.js"></script>
+    <script>
+      window.onload = function() {
+        /**
+         * 步骤一
+         * 初始化配置
+         */
+        kylinClient.config({ host: '192.168.44.84' });
+      };
+      function getData() {
+        /**
+         * 步骤二
+         * 异步请求处理
+         */
+        const promiseResult = kylinClient.query(
+          {
+            project: 'hospital_project',
+            sql:
+              'select quarter as 季度,sum(amount) as 销售额,count(*) as 刷卡次数, ' +
+              'sum(amount)/count(*) as 次均消费 from ncms_hospital_ana_2 ' +
+              'where date_year = 2019 group by quarter order by quarter asc',
+          },
+          { rawData: false },
+        );
+        /**
+         * 步骤三
+         * 数据处理逻辑
+         */
+        promiseResult.then(data => {
+          const r = JSON.stringify(data);
+          document.getElementById('data').textContent = r;
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="getData()">获取数据</button>
+    <p id="data"></p>
+  </body>
+</html>
+```

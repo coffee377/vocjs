@@ -3,3 +3,4 @@ packages/**/esm
 packages/**/dist
 packages/**/lib
 **/*.d.ts
+**/test/**

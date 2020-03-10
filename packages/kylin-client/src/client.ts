@@ -2,7 +2,6 @@
  * This is the doc comment for client.ts
  * @packageDocumentation
  */
-
 import { KylinConfig, QueryOptions, Result, WrapperResult } from './types';
 import { DefaultKylinConfig, kylinRequest, transformResult } from './utils';
 

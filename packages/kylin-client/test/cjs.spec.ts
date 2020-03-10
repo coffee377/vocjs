@@ -1,4 +1,4 @@
-import * as client from '../src';
+const client = require('kylin-client');
 
 client.config({ host: '192.168.44.84', password: 'KYLIN', rawData: false });
 
@@ -12,4 +12,3 @@ test('Node Test', async () => {
   console.log(result);
 });
 
-test('Web Test', () => {});
