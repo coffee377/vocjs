@@ -30,9 +30,9 @@ export function load(host: PluginHost) {
   }
   app.renderer.addComponent(DTS_RENDER, new DtsRenderPlugin(app.renderer));
 
-  app.renderer.getComponents().forEach(v => {
-    console.log(v.componentName);
-  });
+  // app.renderer.getComponents().forEach(v => {
+  //   console.log(v.componentName);
+  // });
 
   // dts.apply();
   console.log(' =====> ', app.project);

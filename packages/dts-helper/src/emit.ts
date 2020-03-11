@@ -20,8 +20,11 @@ export default class Emit {
       path = path.endsWith('.d.ts') ? path : `${path}.d.ts`;
     }
     console.log(`输出单声明文件${path}`);
+    console.log(this.project.files.filter(f => f.name === 'application.d.ts')[0]);
 
-    return Promise.resolve();
+    return this.write(baseDir, path, stream => {
+      stream.write('// 输出单声明文件');
+    });
   }
 
   writeMultipleFile(baseDir: string, outDir: string) {

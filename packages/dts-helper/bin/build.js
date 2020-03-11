@@ -13,7 +13,7 @@ const result = app.bootstrap({
   // name: 'Kylin Documentation',
   // src: ['test'],
   mode: 'file',
-  // exclude: ['**/node_modules/**','**/src/**/*.ts'],
+  exclude: ['**/node_modules/**/*.ts'],
   // logger: 'none',
   declarationFile: 'main.d.ts',
   // declarationDir: 'test',
