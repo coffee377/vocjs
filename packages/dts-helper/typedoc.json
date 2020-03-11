@@ -1,0 +1,13 @@
+{
+  "src": ["src"],
+  "name": "Kylin Client Documentation",
+  "mode": "file",
+  "out": "docs",
+  "ignoreCompilerErrors": false,
+  "includeDeclarations": false,
+  "exclude": ["**/node_modules/**/*.d.ts"],
+  "hideGenerator": true,
+  "readme": "README.md",
+  "stripInternal": true,
+  "plugin": []
+}

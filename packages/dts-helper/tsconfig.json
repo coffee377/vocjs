@@ -2,7 +2,11 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+//    "declaration": true,
+    "outDir": "plugin",
+//    "outFile": "index.d.ts",
+    "experimentalDecorators": true
   },
   "include": ["src"]
 }

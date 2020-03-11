@@ -18,5 +18,6 @@ module.exports = {
     'no-empty': 0,
     'dot-notation': 0,
     'global-require': 1,
+    'class-methods-use-this':0
   },
 };

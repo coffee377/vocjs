@@ -112,6 +112,7 @@ dist
 **/esm
 **/docs
 **/dist
+**/plugin
 /node_modules
 **/yarn.lock
 **/package-lock.json

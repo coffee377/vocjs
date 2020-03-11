@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "types": "types/index.d.ts",
   "scripts": {
+    "dts": "tsc && node bin/build.js",
     "build": "babel src -d lib -x .ts",
     "build:watch": "babel src -d lib -x .ts -w",
     "test": "jest"
