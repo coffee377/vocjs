@@ -27,8 +27,5 @@
     "jest": "^25.1.0",
     "typedoc": "^0.16.11",
     "typescript": "^3.8.3"
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }

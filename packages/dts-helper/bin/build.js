@@ -11,11 +11,10 @@ app.options.addReader(new TypeDoc.TSConfigReader());
 
 const result = app.bootstrap({
   // name: 'Kylin Documentation',
-  // src: ['test'],
   mode: 'file',
   exclude: ['**/node_modules/**/*.ts'],
   // logger: 'none',
-  declarationFile: 'main.d.ts',
+  // declarationFile: 'main.d.ts',
   // declarationDir: 'test',
   ignoreCompilerErrors: false,
   includeDeclarations: false,
@@ -23,7 +22,8 @@ const result = app.bootstrap({
   readme: 'README.md',
   stripInternal: true,
   help: false,
-  plugin: ['D:\\vocjs\\packages\\dts-helper\\plugin\\index.js'],
+  plugin: ['none'],
+  // plugin: ['D:\\vocjs\\packages\\dts-helper\\plugin\\index.js'],
   // declarationFile: 'index2.d.ts',
   // target: 'ES5',
   // module: '',

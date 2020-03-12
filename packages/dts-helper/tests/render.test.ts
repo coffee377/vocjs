@@ -2,27 +2,30 @@ import path from 'path';
 import fs from 'fs-extra';
 import glob from 'glob';
 import { Application, resetReflectionID, SourceFileMode, TypeDocAndTSOptions } from 'typedoc';
-import { CallbackLogger } from 'typedoc/dist/lib/utils';
+import Emit from '../src/render/dts-render/output/Emit';
+import { ReflectionFormatter } from '../src/render/dts-render';
 
-function createApplication(logOutput: string[]) {
+function createApplication() {
   const options: Partial<TypeDocAndTSOptions> = {
     tsconfig: path.resolve(__dirname, '../tsconfig.json'),
-    // ignoreCompilerErrors: true,
+    ignoreCompilerErrors: false,
     includeDeclarations: false,
+    exclude: ['**/node_modules/**', '**/*.+(spec|test|d).ts'],
     excludeExternals: true,
+    stripInternal: true,
     mode: SourceFileMode.File,
     plugin: ['none'],
   } as Partial<TypeDocAndTSOptions>;
 
   const app = new Application();
 
-  app.logger = new CallbackLogger((message: string) => {
-    logOutput.push(message);
-  });
+  // app.logger = new CallbackLogger((message: string) => {
+  //   logOutput.push(message);
+  // });
 
   // app.options.addReader(new TSConfigReader());
 
-  app.bootstrap(options);
+  const { inputFiles, hasErrors } = app.bootstrap(options);
 
   return app;
 }
@@ -35,13 +38,12 @@ const files = ['test-data/**/*.ts']
   .map(f => [f]);
 
 test('kylin-client', () => {
-  const logOutput: string[] = [];
 
-  const app = createApplication(logOutput);
+  const app = createApplication();
 
   resetReflectionID();
 
-  const relative = '../../kylin-client/src';
+  const relative = '../../kylin-client';
   const src = [path.resolve(__dirname, relative)];
 
   const inputFiles = app.expandInputFiles(src);
@@ -50,44 +52,43 @@ test('kylin-client', () => {
   console.log(relative, project === undefined);
 });
 
-describe('reflection renderer test suite', () => {
-  console.log(files);
-
-  test.each(files)('kylin-client test: %s', testFile => {
-    const logOutput: string[] = [];
-    const app = createApplication(logOutput);
+describe('test data', () => {
+  test.each(files)('%s', testFile => {
+    const app = createApplication();
 
     resetReflectionID();
 
-    const innputFiles = app.expandInputFiles([path.join(__dirname, testFile)]);
+    const inputFiles = app.expandInputFiles([path.resolve(__dirname, testFile)]);
 
-    expect(fs.existsSync(path.join(__dirname, testFile))).toBe(true);
+    // expect(fs.existsSync(path.join(__dirname, testFile))).toBe(true);
 
-    const project = app.convert([path.join(__dirname, testFile)]);
-    console.log(testFile, project === undefined);
-    // expect(project).toBeUndefined
-    // const basename = testFile.replace(/(\.d)?\.ts$/i, '');
-    //
-    // if (project) {
-    //   const outBase = path.resolve(__dirname, '../output');
-    //   const outputSuffix = /exact\.d\.ts$/i.test(testFile) ? 'exact' : 'output';
-    //   const outputJsonFile = `${path.join(outBase, basename)}-${outputSuffix}.json`;
-    //   const outputDeclarationFile = `${path.join(outBase, basename)}-${outputSuffix}.d.ts`;
-    //
-    //   if (writeOutput) {
-    //     const emit = Emit.of(project);
-    //     emit.writeSingleFile(outBase, true);
-    //     // emit.writeMultipleFile(outBase, "types");
-    //     // fs.ensureFileSync(outputJsonFile);
-    //     // fs.writeFileSync(outputJsonFile, JSON.stringify(app.serializer.toObject(project), null, '  '));
-    //
-    //     /* 验证测试 ReflectionFormatter */
-    //     // const formatter = ReflectionFormatter.instance();
-    //     // const result = formatter.render(project);
-    //     //
-    //     // fs.ensureFileSync(outputDeclarationFile);
-    //     // fs.writeFileSync(outputDeclarationFile, result);
-    //   }
-    // }
+    const project = app.convert(inputFiles);
+
+    // console.log(testFile, project === undefined);
+
+    const basename = testFile.replace(/(\.d)?\.ts$/i, '');
+
+    if (project) {
+      const outBase = path.resolve(__dirname, '../output');
+      const outputSuffix = /exact\.d\.ts$/i.test(testFile) ? 'exact' : 'output';
+      const outputJsonFile = `${path.join(outBase, basename)}-${outputSuffix}.json`;
+      const outputDeclarationFile = `${path.join(outBase, basename)}-${outputSuffix}.d.ts`;
+
+      if (writeOutput) {
+        const emit = Emit.of(project);
+        // emit.writeSingleFile(outBase, true);
+        // emit.writeMultipleFile(outBase, "types");
+
+        fs.ensureFileSync(outputJsonFile);
+        fs.writeFileSync(outputJsonFile, JSON.stringify(app.serializer.toObject(project), null, '  '));
+
+        /* 验证测试 ReflectionFormatter */
+        const formatter = ReflectionFormatter.instance();
+        const result = formatter.render(project);
+
+        fs.ensureFileSync(outputDeclarationFile);
+        fs.writeFileSync(outputDeclarationFile, result);
+      }
+    }
   });
 });

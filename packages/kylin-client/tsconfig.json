@@ -4,6 +4,8 @@
     "module": "commonjs",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "emitDeclarationOnly": true,
+    "declaration": true,
     "baseUrl": "."
   },
   "include": ["src", "types"]

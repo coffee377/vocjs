@@ -1,14 +1,14 @@
 import { Reflection, ReflectionKind } from 'typedoc';
 import Indent from '../../output/Indent';
 import CommentRenderer from './comment-renderer';
-import { IRenderer } from '../../renderers';
+import { IRenderer } from '../index';
 
 export abstract class ReflectionRenderer implements IRenderer {
   protected indention: Indent;
 
   protected commentRenderer: CommentRenderer;
 
-  protected constructor() {
+  public constructor() {
     this.indention = Indent.instance();
     this.commentRenderer = new CommentRenderer();
   }

@@ -1,1 +1,1 @@
-export { DtsApplication as Application } from 'application';
+export { DtsApplication as Application } from './application';

@@ -1,6 +1,6 @@
 import { Reflection, ReflectionKind, SignatureReflection } from 'typedoc/dist/lib/models';
 import { join } from '../../../../utils';
-import {IRenderer} from '../../renderers';
+import { IRenderer } from '../index';
 
 export default class CommentRenderer implements IRenderer {
   public render(node: Reflection): string {
