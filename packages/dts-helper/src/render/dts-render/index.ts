@@ -1,9 +1,10 @@
 import { Component, RendererComponent } from 'typedoc/dist/lib/output/components';
 import { BindOption, DeclarationOption, ParameterType } from 'typedoc';
 import { RendererEvent } from 'typedoc/dist/lib/output/events';
-import Emit from './emit';
+import Emit from './output/emit';
+import { ReflectionFormatter } from './format';
 
-export const DTS_RENDER: string = 'dts-render';
+const DTS_RENDER: string = 'dts-render';
 
 const declarationFile: DeclarationOption = {
   name: 'declarationFile',
@@ -27,7 +28,7 @@ const declarationOnly: DeclarationOption = {
 };
 
 @Component({ name: DTS_RENDER })
-export class DtsRenderPlugin extends RendererComponent {
+class DtsRender extends RendererComponent {
   static options: DeclarationOption[] = [declarationFile, declarationDir, declarationOnly];
 
   private baseDir: string;
@@ -53,7 +54,6 @@ export class DtsRenderPlugin extends RendererComponent {
 
   private onRenderBegin(event: RendererEvent) {
     const emit = Emit.of(event.project);
-    // const num:number =
     if (this.outFile) {
       // 输出单声明文件
       this.result = emit.writeSingleFile(this.baseDir, this.outFile);
@@ -69,3 +69,5 @@ export class DtsRenderPlugin extends RendererComponent {
     });
   }
 }
+
+export { DTS_RENDER, DtsRender, ReflectionFormatter };

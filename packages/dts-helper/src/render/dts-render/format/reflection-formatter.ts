@@ -1,10 +1,10 @@
-/**
- * Sort flags
- */
 import { Reflection } from 'typedoc';
 import { renderers } from './renderers';
 
-export enum ReflectionSortFlags {
+/**
+ * Sort flags
+ */
+enum ReflectionSortFlags {
   none = 0,
   /**
    * @internal
@@ -15,7 +15,7 @@ export enum ReflectionSortFlags {
   all = 7,
 }
 
-export const sortMapping: { [key: string]: ReflectionSortFlags | undefined } = {
+const sortMapping: { [key: string]: ReflectionSortFlags | undefined } = {
   none: ReflectionSortFlags.none,
   tag: ReflectionSortFlags.tag,
   container: ReflectionSortFlags.container,
@@ -23,7 +23,7 @@ export const sortMapping: { [key: string]: ReflectionSortFlags | undefined } = {
   all: ReflectionSortFlags.all,
 };
 
-export default class ReflectionFormatter {
+class ReflectionFormatter {
   private static ins: ReflectionFormatter;
 
   public static sortOption: ReflectionSortFlags = ReflectionSortFlags.none;
@@ -54,3 +54,5 @@ export default class ReflectionFormatter {
     return ReflectionFormatter.ins;
   }
 }
+
+export { ReflectionSortFlags, sortMapping, ReflectionFormatter };

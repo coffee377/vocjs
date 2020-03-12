@@ -107,7 +107,7 @@ dist
 
 .idea
 **/*/node_modules
-**/output
+**/packages/*/output
 **/*.lock
 **/lib
 **/esm

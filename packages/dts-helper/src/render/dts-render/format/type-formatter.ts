@@ -16,7 +16,7 @@ import {
   UnionType,
 } from 'typedoc/dist/lib/models/types';
 
-import ReflectionFormatter from './reflection-formatter';
+import { ReflectionFormatter } from './reflection-formatter';
 
 export interface TypeFormatterOptions {
   isOptionalType?: boolean;

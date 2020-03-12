@@ -1,10 +1,10 @@
 import { ReflectionKind } from 'typedoc';
-import ReflectionRenderer from './reflection-renderer';
-import AccessorRenderer from './impl/accessor-renderer';
-import ContainerRenderer from './impl/container-renderer';
-import ProjectRenderer from './impl/project-renderer';
+import { IRenderer } from '../index';
+import ProjectRenderer from './project-renderer';
+import AccessorRenderer from './accessor-renderer';
+import ContainerRenderer from './container-renderer';
 
-export const renderers: { [kind: number]: ReflectionRenderer } = {
+const renderers: { [kind: number]: IRenderer } = {
   [ReflectionKind.Global]: new ProjectRenderer(),
   [ReflectionKind.Accessor]: new AccessorRenderer(),
   [ReflectionKind.ExternalModule]: new ContainerRenderer('module'),
@@ -13,3 +13,5 @@ export const renderers: { [kind: number]: ReflectionRenderer } = {
   [ReflectionKind.Class]: new ContainerRenderer('class'),
   [ReflectionKind.Enum]: new ContainerRenderer('enum'),
 };
+
+export { renderers };

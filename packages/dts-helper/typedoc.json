@@ -1,5 +1,4 @@
 {
-  "src": ["src"],
   "name": "Kylin Client Documentation",
   "mode": "file",
   "out": "docs",

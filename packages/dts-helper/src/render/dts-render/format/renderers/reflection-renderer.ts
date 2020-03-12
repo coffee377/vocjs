@@ -1,6 +1,18 @@
 import { Reflection, ReflectionKind } from 'typedoc';
+import Indent from '../../output/Indent';
+import CommentRenderer from './comment-renderer';
+import { IRenderer } from '../../renderers';
 
-export default abstract class ReflectionRenderer {
+export abstract class ReflectionRenderer implements IRenderer {
+  protected indention: Indent;
+
+  protected commentRenderer: CommentRenderer;
+
+  protected constructor() {
+    this.indention = Indent.instance();
+    this.commentRenderer = new CommentRenderer();
+  }
+
   public abstract render(node: Reflection, terminationCharacter?: string): string;
 
   protected getModifiers(node: Reflection, parent?: Reflection): string[] {
@@ -41,9 +53,7 @@ export default abstract class ReflectionRenderer {
   }
 
   protected renderComment(node: Reflection): string {
-    // return this._commentRenderer.render(node);
-    // TODO 注释渲染
-    return node.comment.text;
+    return this.commentRenderer.render(node);
   }
 
   protected encodeName(name: string): string {

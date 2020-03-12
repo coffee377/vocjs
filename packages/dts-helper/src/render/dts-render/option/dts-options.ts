@@ -1,4 +1,4 @@
-export interface DtsPluginOptions {
+export interface DtsOptions {
   /**
    * @description 基本目录
    * @default process.cwd()

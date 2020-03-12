@@ -7,7 +7,6 @@ export default class ProjectRenderer extends ContainerRenderer {
   }
 
   public render(node: Reflection): string {
-    // return `declare module ${node.name} {}`;
     return this.renderBody(node as DeclarationReflection, 0);
   }
 }

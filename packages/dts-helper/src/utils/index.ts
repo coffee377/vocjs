@@ -1,9 +1,12 @@
 import path from 'path';
+import { propertySorter } from './sort';
 
-export function join(delimiter: string, ...values: any[]): string {
+function join(delimiter: string, ...values: any[]): string {
   return values.filter(v => v !== null && v !== undefined && v !== '').join(delimiter);
 }
 
-export function resolveFileName(baseDir: string, fileName: string) {
+function resolveFileName(baseDir: string, fileName: string) {
   return path.resolve(baseDir, fileName);
 }
+
+export { join, resolveFileName, propertySorter };
