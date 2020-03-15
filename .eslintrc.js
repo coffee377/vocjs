@@ -15,6 +15,7 @@ module.exports = {
     'no-plusplus': 0,
     'no-console': 0,
     'no-shadow': 0,
+    'no-bitwise':0,
     'no-empty': 0,
     'dot-notation': 0,
     'global-require': 1,

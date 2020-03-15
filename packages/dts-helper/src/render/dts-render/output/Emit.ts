@@ -1,5 +1,5 @@
 import { ensureFileSync, createWriteStream, WriteStream } from 'fs-extra';
-import { ProjectReflection } from 'typedoc/dist/lib/models';
+import { ProjectReflection, SourceFile } from 'typedoc/dist/lib/models';
 import { resolveFileName } from '../../../utils';
 import { ReflectionFormatter } from '../format';
 
@@ -14,15 +14,32 @@ export default class Emit {
     return new Emit(project);
   }
 
-  writeSingleFile(baseDir: string, outFile: boolean | string) {
+  writeSingleFile(baseDir: string, outFile: boolean | string = true) {
+    if (!this.project) {
+      return Promise.reject(new Error('ProjectReflection undefined'));
+    }
+    if (!outFile) {
+      return Promise.resolve();
+    }
+
     let path = 'index.d.ts';
-    if (typeof outFile === 'string') {
+    if (outFile && typeof outFile === 'string') {
       path = outFile;
       path = path.endsWith('.d.ts') ? path : `${path}.d.ts`;
     }
+
     console.log(`输出单声明文件 => ${path}`);
     const { files } = this.project;
-    const sf = files[0];
+
+    // 1. 获取 SourceFile
+    const sourceFile: SourceFile = files[0];
+
+    // 2. 获取 reflectionGroups
+    const reflectionGroups = sourceFile.groups;
+
+    const groups = reflectionGroups.map(g =>
+      g.children.map(r => `id => ${r.id}  name => ${r.name} kindString => ${r.kindString}`),
+    );
 
     const formatter = ReflectionFormatter.instance();
 
@@ -30,12 +47,13 @@ export default class Emit {
     // sf.reflections.forEach(r => {
     //   console.log(r);
     // });
-    const r = sf.reflections.map(r => `id => ${r.id}  name => ${r.name}`);
+    const reflections = sourceFile.reflections.map(r => `id => ${r.id}  name => ${r.name}`);
 
     return this.write(baseDir, path, stream => {
       stream.write('// 输出单声明文件\n');
-      stream.write(`declare module '${sf.name}' {\n`);
-      r.forEach(s => stream.write(`// ${s}\n`));
+      stream.write(`declare module '${sourceFile.name}' {\n`);
+      groups[0].forEach(s => stream.write(`// ${s}\n`));
+      // reflections.forEach(s => stream.write(`// ${s}\n`));
       stream.write(`}\n`);
     });
   }

@@ -1,15 +1,15 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-//        "target": "es6",
-    "lib": ["esnext"],
-        "module": "commonjs",
-    "allowSyntheticDefaultImports": true,
-    //    "declaration": true,
-    "outDir": "plugin",
-    "experimentalDecorators": true
+////        "target": "es6",
+    "lib": ["esnext"]
+//        "module": "commonjs",
+//    "allowSyntheticDefaultImports": true,
+//    //    "declaration": true,
+//    "outDir": "plugin",
+//    "experimentalDecorators": true
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts", "../../node_modules/@types/jest/index.d.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": [
     "*.config.js",
     "src/**/*.test.(ts|tsx)",

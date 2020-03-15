@@ -6,7 +6,8 @@
     "esModuleInterop": true,
     "emitDeclarationOnly": true,
     "declaration": true,
-    "baseUrl": "."
-  },
-  "include": ["src", "types"]
+    "removeComments": false
+//    "baseUrl": "."
+  }
+//  "include": ["src", "types"]
 }

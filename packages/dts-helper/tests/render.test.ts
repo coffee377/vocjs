@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'fs-extra';
 import glob from 'glob';
 import { Application, resetReflectionID, SourceFileMode, TypeDocAndTSOptions } from 'typedoc';
+import ts from 'typescript';
 import Emit from '../src/render/dts-render/output/Emit';
 import { ReflectionFormatter } from '../src/render/dts-render';
 
@@ -38,18 +39,22 @@ const files = ['test-data/**/*.ts']
   .map(f => [f]);
 
 test('kylin-client', () => {
-
   const app = createApplication();
 
-  resetReflectionID();
-
+  // resetReflectionID();
   const relative = '../../kylin-client';
+
   const src = [path.resolve(__dirname, relative)];
 
   const inputFiles = app.expandInputFiles(src);
 
   const project = app.convert(inputFiles);
-  console.log(relative, project === undefined);
+
+  const emit = Emit.of(project);
+
+  emit.writeSingleFile(path.resolve(__dirname, '..'));
+
+  // console.log(relative, project === undefined);
 });
 
 describe('test data', () => {

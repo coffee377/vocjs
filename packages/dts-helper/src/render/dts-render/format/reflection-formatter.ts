@@ -1,5 +1,6 @@
 import { Reflection } from 'typedoc';
 import { renderers } from './renderers';
+import { SourceFile } from 'typedoc/dist/lib/models';
 
 /**
  * Sort flags
@@ -45,6 +46,10 @@ class ReflectionFormatter {
     }
 
     return '';
+  }
+
+  public renderSourceFile(sourceFile: SourceFile, root: boolean): string {
+    return ''
   }
 
   public static instance() {
