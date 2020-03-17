@@ -2,7 +2,7 @@
 
 ### API
 
-```typescript
+```js
 const dts = require('dts-helper');
 
 dts.emit(opts)
