@@ -1,6 +1,6 @@
-import { Application, DeclarationOption, TSConfigReader, TypeDocReader } from 'typedoc';
+import { Application, DeclarationOption } from 'typedoc';
 import { PluginHost } from 'typedoc/dist/lib/utils';
-import { DTS_RENDER, DtsRender } from './render';
+import { DTS_RENDER, DtsRender } from '../render';
 
 const options: DeclarationOption[] = [...DtsRender.options];
 
@@ -37,7 +37,7 @@ export function load(host: PluginHost) {
   // });
 
   // dts.apply();
-  console.log(' =====> ', app.project);
+  // console.log(' =====> ', app.project);
 
   // const src = app.expandInputFiles(['src']);
   // app.logger.verbose(JSON.stringify(src));

@@ -1,4 +1,4 @@
-interface Module {
+export interface Module {
   /**
    * @description 模块 ID
    */
@@ -47,5 +47,5 @@ class ModuleResolve {
   run(): Module {
     return { fileName: '', id: '', name: '', path: [] };
   }
-  
+
 }

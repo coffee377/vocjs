@@ -6,21 +6,22 @@ import { TsError } from '../utils/error';
 export type DeclarationSourceFile = ts.SourceFile;
 
 function getDeclarationFiles(tsconfig: TSConfig): DeclarationSourceFile[] {
-  const [files, compilerOptions] = tsconfig;
+  const { files, compilerOptions } = tsconfig;
 
   const host = ts.createCompilerHost(compilerOptions, true) as ts.CompilerHost;
 
   const program = ts.createProgram(files, compilerOptions, host) as ts.Program;
 
-  const declarationFiles: DeclarationSourceFile[] = [];
+  const declarationFileMap: Map<string, DeclarationSourceFile> = new Map<string, DeclarationSourceFile>();
 
   function writeFile(filename: string, data: string) {
-    if (filename.slice(-5) !== '.d.ts') {
+    // 非声明文件或声明文件已经存在
+    if (filename.slice(-5) !== '.d.ts' || declarationFileMap.has(filename)) {
       return;
     }
 
     const sourceFile = ts.createSourceFile(filename, data, compilerOptions.target, true) as ts.SourceFile;
-    declarationFiles.push(sourceFile);
+    declarationFileMap.set(filename, sourceFile);
   }
 
   program
@@ -40,6 +41,14 @@ function getDeclarationFiles(tsconfig: TSConfig): DeclarationSourceFile[] {
         );
       }
     });
+  const map = Array.from(declarationFileMap);
+
+  const declarationFiles: DeclarationSourceFile[] = [];
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [k, v] of map) {
+    declarationFiles.push(v);
+  }
+
   return declarationFiles;
 }
 

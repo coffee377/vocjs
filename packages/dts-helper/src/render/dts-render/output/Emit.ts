@@ -1,7 +1,6 @@
-import { ensureFileSync, createWriteStream, WriteStream } from 'fs-extra';
 import { ProjectReflection, SourceFile } from 'typedoc/dist/lib/models';
-import { resolveFileName } from '../../../utils';
 import { ReflectionFormatter } from '../format';
+import SingleFile from '../../../output/single-file';
 
 export default class Emit {
   private readonly project: ProjectReflection;
@@ -48,40 +47,19 @@ export default class Emit {
     //   console.log(r);
     // });
     const reflections = sourceFile.reflections.map(r => `id => ${r.id}  name => ${r.name}`);
-
-    return this.write(baseDir, path, stream => {
-      stream.write('// 输出单声明文件\n');
-      stream.write(`declare module '${sourceFile.name}' {\n`);
-      groups[0].forEach(s => stream.write(`// ${s}\n`));
-      // reflections.forEach(s => stream.write(`// ${s}\n`));
-      stream.write(`}\n`);
-    });
+    const sf = new SingleFile('', '');
+    return sf.emit();
+    // return SingleFile(baseDir, path, stream => {
+    //   stream.write('// 输出单声明文件\n');
+    //   stream.write(`declare module '${sourceFile.name}' {\n`);
+    //   groups[0].forEach(s => stream.write(`// ${s}\n`));
+    //   // reflections.forEach(s => stream.write(`// ${s}\n`));
+    //   stream.write(`}\n`);
+    // });
   }
 
   writeMultipleFile(baseDir: string, outDir: string) {
     console.log('输出多声明文件');
     return Promise.reject(new Error('Multi-file declaration output is not implemented!'));
-  }
-
-  private write<T = any>(baseDir: string, fileName: string, callback?: (stream: WriteStream) => void): Promise<T> {
-    return new Promise<T>((resolve, reject) => {
-      // 1. 解析获取完整文件路径
-      const outPath = resolveFileName(baseDir, fileName);
-      // 2. 确保文件存在
-      ensureFileSync(outPath);
-      // 3. 创建输出流
-      const out = createWriteStream(outPath, { mode: 644 });
-      out.on('close', () => {
-        resolve();
-      });
-      out.on('error', reject);
-      // 4. copyright
-
-      // 5. 回调
-      if (callback) {
-        callback(out);
-      }
-      out.end();
-    });
   }
 }

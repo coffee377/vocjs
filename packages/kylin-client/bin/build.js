@@ -2,6 +2,7 @@
 
 const TypeDoc = require('typedoc');
 const webpack = require('webpack');
+const dts = require('dts-helper');
 const babelCli = require('../../../node_modules/@babel/cli/lib/babel/dir');
 const webpackConfig = require('../webpack.config');
 
@@ -68,7 +69,7 @@ app.bootstrap({
   readme: 'README.md',
   stripInternal: true,
   help: false,
-  plugin: ['none', 'typedoc-plugin-typescript-declaration'],
+  plugin: ['none'],
   // declarationFile: 'index2.d.ts',
   // target: 'ES5',
   // module: '',
@@ -88,6 +89,4 @@ if (project) {
 }
 
 // dts
-const dts = require('dts-helper').default;
-
-dts({}).catch();
+dts.emit({ outDir: 'types' });

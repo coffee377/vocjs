@@ -1,13 +1,10 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-////        "target": "es6",
-    "lib": ["esnext"]
-//        "module": "commonjs",
-//    "allowSyntheticDefaultImports": true,
-//    //    "declaration": true,
-//    "outDir": "plugin",
-//    "experimentalDecorators": true
+    "lib": ["esnext"],
+    "module": "commonjs",
+    "outDir": "lib",
+    "experimentalDecorators": true
   },
   "include": ["src/**/*.ts"],
   "exclude": [

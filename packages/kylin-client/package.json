@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "tsc": "tsc",
+    "dts": "dts -f",
     "build": "node bin/build.js",
     "test": "jest"
   },

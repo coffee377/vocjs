@@ -9,9 +9,14 @@ import { slash } from './index';
 
 function isFile(file: string) {
   return existsSync(file) && statSync(file).isFile();
+  // ts.SyntaxKind
 }
 
-export type TSConfig = [string[], ts.CompilerOptions];
+export interface TSConfig {
+  basePath: string;
+  files: string[];
+  compilerOptions: ts.CompilerOptions;
+}
 
 const readConfig = (file: string): TSConfig => {
   let fileToRead: string | undefined = file;
@@ -31,10 +36,12 @@ const readConfig = (file: string): TSConfig => {
     throw TsError([error as ts.Diagnostic]);
   }
 
+  const basePath = dirname(fileToRead);
+
   const configParseResult = ts.parseJsonConfigFileContent(
     config,
     ts.sys,
-    dirname(fileToRead),
+    basePath,
     {},
     fileToRead,
   ) as ts.ParsedCommandLine;
@@ -43,16 +50,27 @@ const readConfig = (file: string): TSConfig => {
     throw TsError(configParseResult.errors);
   }
   const { fileNames, options } = configParseResult;
-  return [fileNames, options];
+  return { basePath, files: fileNames, compilerOptions: options };
 };
 
+function getOutFile(outFile: string | boolean) {
+  let file = 'index.d.ts';
+  if (outFile && typeof outFile === 'string') {
+    file = outFile;
+    file = file.endsWith('.d.ts') ? file : `${file}.d.ts`;
+  }
+  return file;
+}
+
 const mergeConfig = (tsConfig: TSConfig, options: IOptions): TSConfig => {
-  const { include, exclude, outDir, removeComments, noEmit } = options;
-  const { configFilePath } = tsConfig[1] as ts.CompilerOptions;
-  const baseDir = dirname(configFilePath as string);
+  const { include, exclude, outFile, outDir, removeComments, noEmit } = options;
+
+  const { basePath, compilerOptions } = tsConfig;
+
+  const baseDir = tsConfig.basePath;
   const excludeMap: { [filename: string]: boolean } = {};
   let result: Set<string> = new Set<string>();
-  let files = tsConfig[0];
+  let { files } = tsConfig;
 
   if (include && include.length > 0) {
     include.forEach(pattern => {
@@ -75,7 +93,7 @@ const mergeConfig = (tsConfig: TSConfig, options: IOptions): TSConfig => {
     files = Array.from(result);
   }
 
-  const opts: ts.CompilerOptions = {
+  const newOpts: ts.CompilerOptions = {
     declaration: true,
     emitDeclarationOnly: true,
     declarationDir: outDir,
@@ -83,9 +101,11 @@ const mergeConfig = (tsConfig: TSConfig, options: IOptions): TSConfig => {
     noEmit,
   };
 
-  const compilerOptions = merge({}, tsConfig[1], opts);
+  if (outFile) {
+    newOpts['outFile'] = getOutFile(outFile);
+  }
 
-  return [files, compilerOptions];
+  return { basePath, files, compilerOptions: merge({}, compilerOptions, newOpts) };
 };
 
 const getConfig = (file: string, options: IOptions): TSConfig => mergeConfig(readConfig(file), options);

@@ -5,12 +5,12 @@ export interface IOptions {
    * @description 基本目录
    * @default process.cwd()
    */
-  baseDir: string;
+  baseDir?: string;
   /**
    * @description tsconfig.json 配置文件
    * @default tsconfig.json
    */
-  tsConfig: string;
+  tsConfig?: string;
   /**
    * @description
    * @default false
@@ -54,9 +54,10 @@ export interface IOptions {
   // resolveModuleImport?: (params: ResolveModuleImportParams) => string;
   verbose?: boolean;
 }
+
 export const DEFAULT_OPTS: IOptions = {
-  baseDir: '.',
-  tsConfig: 'tsconfig.json',
+  // baseDir: '.',
+  // tsConfig: 'tsconfig.json',
   outDir: undefined,
   outFile: false,
   noEmit: false,

@@ -1,30 +1,3 @@
-import dts from 'dts-element';
-import path from 'path';
-import ts from 'typescript';
-import fs from 'fs-extra';
-import { getConfig } from '../src/utils/tsconfig';
-import { DEFAULT_OPTS } from '../src/options';
-import { SignatureReflection, SourceFile } from 'typedoc/dist/lib/models';
-import { slash } from '../src/utils';
-import { TsError } from '../src/utils/error';
-import getDeclarationFiles, { DeclarationSourceFile } from '../src/declaration/source-file';
-
-test('dts-element', () => {
-  const relative = '../../kylin-client';
-
-  const rooNames = path.resolve(__dirname, relative);
-
-  const tsconfig = getConfig(rooNames, DEFAULT_OPTS);
-
-  const declarationFiles: DeclarationSourceFile[] = getDeclarationFiles(tsconfig);
-
-  declarationFiles.forEach(f => {
-    console.log(f.fileName);
-  });
-
-  console.log(declarationFiles.length);
-});
-
 test('JetBrainsQuest S1E1', () => {
   // JetBrains Quest begins… #JetBrainsQuest
   // 48 61 76 65 20 79 6f 75 20 73 65 65 6e 20 74 68 65 20 73 6f 75 72 63 65 20 63 6f 64 65 20 6f 66 20 74 68 65 20 4a 65 74 42 72 61 69 6e 73 20 77 65 62 73 69 74 65 3f
