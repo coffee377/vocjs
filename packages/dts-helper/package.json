@@ -1,13 +1,19 @@
 {
   "name": "dts-helper",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "TypeScript 声明文件生成工具",
   "bin": {
     "dts": "./bin/cli.js"
   },
   "main": "lib/index.js",
   "types": "types/index.d.ts",
-  "files": ["bin", "docs", "lib", "types", "README.md"],
+  "files": [
+    "bin",
+    "docs",
+    "lib",
+    "types",
+    "README.md"
+  ],
   "scripts": {
     "dts": "node bin/cli.js -d types",
     "compile": "tsc",
@@ -15,7 +21,13 @@
     "build:watch": "babel src -d lib -x .ts -w",
     "test": "jest"
   },
-  "keywords": ["TypeScript", "tsc", "dts", "declaration", "tool"],
+  "keywords": [
+    "TypeScript",
+    "tsc",
+    "dts",
+    "declaration",
+    "tool"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
