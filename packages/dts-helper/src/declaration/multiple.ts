@@ -1,12 +1,10 @@
-import { DeclarationSourceFile } from './source';
+import { DeclarationFile } from './source';
 import MultipleFile from '../output/multiple-file';
 
-function multiple(declarationFiles: DeclarationSourceFile[], baseDir?: string) {
-  const fileMap: Map<string, string> = new Map<string, string>();
+function multiple(declarationFiles: DeclarationFile[], baseDir?: string) {
+  const files = declarationFiles.map(file => [file.fileName, file.contents]);
 
-  declarationFiles.forEach(file => {
-    fileMap.set(file.fileName, file.text);
-  });
+  const fileMap: Map<string, string> = new Map<string, string>(files);
 
   const mf = new MultipleFile(fileMap, baseDir);
   return mf.emit();

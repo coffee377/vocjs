@@ -16,6 +16,7 @@ export interface TSConfig {
   basePath: string;
   files: string[];
   compilerOptions: ts.CompilerOptions;
+  cmdOptions?: IOptions;
 }
 
 const readConfig = (file: string): TSConfig => {
@@ -93,7 +94,7 @@ const mergeConfig = (tsConfig: TSConfig, options: IOptions): TSConfig => {
     files = Array.from(result);
   }
 
-  const newOpts: ts.CompilerOptions = {
+  const newCompilerOptions: ts.CompilerOptions = {
     declaration: true,
     emitDeclarationOnly: true,
     declarationDir: outDir,
@@ -102,10 +103,17 @@ const mergeConfig = (tsConfig: TSConfig, options: IOptions): TSConfig => {
   };
 
   if (outFile) {
-    newOpts['outFile'] = getOutFile(outFile);
+    newCompilerOptions['outFile'] = getOutFile(outFile);
   }
 
-  return { basePath, files, compilerOptions: merge({}, compilerOptions, newOpts) };
+  const finalCompilerOptions = merge({}, compilerOptions, newCompilerOptions) as ts.CompilerOptions;
+
+  // 冲突时剔除输出目录
+  if (finalCompilerOptions.outFile && finalCompilerOptions.declarationDir) {
+    delete finalCompilerOptions.declarationDir;
+  }
+
+  return { basePath, files, compilerOptions: finalCompilerOptions, cmdOptions: options };
 };
 
 const getConfig = (file: string, options: IOptions): TSConfig => mergeConfig(readConfig(file), options);

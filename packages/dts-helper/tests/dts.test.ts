@@ -1,15 +1,28 @@
 import path from 'path';
-import { getConfig } from '../src/utils/tsconfig';
 import { DEFAULT_OPTS, IOptions } from '../src/options';
-import { emit } from '../src/declaration';
+import { run } from '../src/declaration';
+import { getConfig } from '../src/utils/tsconfig';
 
 test('dts', () => {
-  // const relative = '../../kylin-client';
-  const relative = '..';
+  const relative = '../../kylin-client';
+  // const relative = '..';
 
-  const rooNames = path.resolve(__dirname, relative);
+  const root = path.resolve(__dirname, relative, 'tsconfig.json');
 
-  const opts: IOptions = { ...DEFAULT_OPTS, outDir: 'types', outFile: true };
+  const opts: IOptions = { ...DEFAULT_OPTS, outDir: 'types-test', outFile: 'index-test.d.ts' };
 
-  emit(opts);
+  const tsconfig = getConfig(root, opts);
+
+  run(tsconfig, opts);
+});
+
+test('kylin-client/index', () => {
+  function r(name: string) {
+    return name.replace(/\/?(\/|index)?$/, '');
+  }
+  expect(r('index/index')).toBe('index');
+  expect(r('index')).toBe('');
+  expect(r('a/index')).toBe('a');
+  expect(r('a/')).toBe('a');
+  expect(r('a')).toBe('a');
 });
