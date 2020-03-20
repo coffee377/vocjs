@@ -1,13 +1,19 @@
 {
   "name": "dts-helper",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "TypeScript 声明文件生成工具",
   "bin": {
     "dts": "./bin/cli.js"
   },
   "main": "lib/index.js",
   "types": "index.d.ts",
-  "files": ["bin", "docs", "lib", "types", "README.md"],
+  "files": [
+    "bin",
+    "docs",
+    "lib",
+    "types",
+    "README.md"
+  ],
   "scripts": {
     "dts": "node bin/cli.js -f -m",
     "compile": "tsc",
@@ -15,7 +21,13 @@
     "build:watch": "babel src -d lib -x .ts -w",
     "test": "jest"
   },
-  "keywords": ["TypeScript", "tsc", "dts", "declaration", "tool"],
+  "keywords": [
+    "TypeScript",
+    "tsc",
+    "dts",
+    "declaration",
+    "tool"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/coffee377/vocjs.git"
@@ -34,8 +46,8 @@
     "@babel/preset-env": "^7.8.3",
     "@babel/preset-typescript": "^7.8.3",
     "@types/fs-extra": "^8.1.0",
-    "@types/lodash": "^4.14.149",
     "@types/jest": "^25.1.4",
+    "@types/lodash": "^4.14.149",
     "babel-jest": "^25.1.0",
     "jest": "^25.1.0",
     "typedoc": "^0.16.11",
