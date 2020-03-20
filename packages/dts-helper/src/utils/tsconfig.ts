@@ -5,20 +5,23 @@ import { merge } from 'lodash';
 import minimatch from 'minimatch';
 import { TsError } from './error';
 import { IOptions } from '../options';
-import { slash } from './index';
+import { resolveFileName, slash } from './index';
 
 function isFile(file: string) {
   return existsSync(file) && statSync(file).isFile();
-  // ts.SyntaxKind
 }
 
 export interface TSConfig {
   basePath: string;
   files: string[];
   compilerOptions: ts.CompilerOptions;
-  cmdOptions?: IOptions;
+  options: IOptions;
 }
 
+/**
+ * 读取配置文件
+ * @param file
+ */
 const readConfig = (file: string): TSConfig => {
   let fileToRead: string | undefined = file;
   if (!isFile(fileToRead)) {
@@ -51,10 +54,10 @@ const readConfig = (file: string): TSConfig => {
     throw TsError(configParseResult.errors);
   }
   const { fileNames, options } = configParseResult;
-  return { basePath, files: fileNames, compilerOptions: options };
+  return { basePath, files: fileNames, compilerOptions: options, options: undefined };
 };
 
-function getOutFile(outFile: string | boolean) {
+function getOutFile(outFile: string | boolean): string {
   let file = 'index.d.ts';
   if (outFile && typeof outFile === 'string') {
     file = outFile;
@@ -63,12 +66,21 @@ function getOutFile(outFile: string | boolean) {
   return file;
 }
 
+function getModulePrefix(base: string, prefix: boolean | string): string {
+  // eslint-disable-next-line import/no-dynamic-require
+  const { name } = require(`${base}/package.json`);
+  if (prefix && typeof prefix === 'string') {
+    return prefix;
+  }
+  return name;
+}
+
 const mergeConfig = (tsConfig: TSConfig, options: IOptions): TSConfig => {
-  const { include, exclude, outFile, outDir, removeComments, noEmit } = options;
+  const { include, exclude, outFile, modulePrefix, outDir, removeComments, noEmit } = options;
 
   const { basePath, compilerOptions } = tsConfig;
 
-  const baseDir = tsConfig.basePath;
+  const baseDir = basePath;
   const excludeMap: { [filename: string]: boolean } = {};
   let result: Set<string> = new Set<string>();
   let { files } = tsConfig;
@@ -106,6 +118,10 @@ const mergeConfig = (tsConfig: TSConfig, options: IOptions): TSConfig => {
     newCompilerOptions['outFile'] = getOutFile(outFile);
   }
 
+  if (modulePrefix) {
+    options['modulePrefix'] = getModulePrefix(baseDir, modulePrefix);
+  }
+
   const finalCompilerOptions = merge({}, compilerOptions, newCompilerOptions) as ts.CompilerOptions;
 
   // 冲突时剔除输出目录
@@ -113,9 +129,16 @@ const mergeConfig = (tsConfig: TSConfig, options: IOptions): TSConfig => {
     delete finalCompilerOptions.declarationDir;
   }
 
-  return { basePath, files, compilerOptions: finalCompilerOptions, cmdOptions: options };
+  return { basePath, files, compilerOptions: finalCompilerOptions, options };
 };
 
-const getConfig = (file: string, options: IOptions): TSConfig => mergeConfig(readConfig(file), options);
+const getConfig = (file: string, options: IOptions): TSConfig => {
+  let filename: string = file;
+  if (!filename) {
+    const { baseDir, tsConfig } = options;
+    filename = resolveFileName(tsConfig, baseDir);
+  }
+  return mergeConfig(readConfig(filename), options);
+};
 
 export { readConfig, mergeConfig, getConfig };

@@ -17,6 +17,11 @@ export interface IOptions {
    */
   removeComments?: boolean;
   /**
+   * @description 模块前缀(默认使用项目名称或者自定义)
+   * @default true
+   */
+  modulePrefix?: boolean | string;
+  /**
    * @description 声明文件目录
    */
   outDir?: string;
@@ -29,35 +34,22 @@ export interface IOptions {
    * @description
    * @default false
    */
-  noEmit: boolean;
+  noEmit?: boolean;
   include?: string[];
   /**
    * @description 排除文件 glob
    * @default
    */
   exclude?: string[];
-  main?: string;
-  externals?: string[];
-  types?: string[];
   eol?: string;
   indent?: string;
-
-  // moduleResolution?: ts.ModuleResolutionKind;
-  // name?: string;
-  // out?: string;
-  // prefix?: string;
-  // rootDir?: string;
-  // target?: ts.ScriptTarget;
   log?: (message: any, ...optionalParams: any[]) => void;
-  // sendMessage?: (message: any, ...optionalParams: any[]) => void;
-  // resolveModuleId?: (params: ResolveModuleIdParams) => string;
-  // resolveModuleImport?: (params: ResolveModuleImportParams) => string;
   verbose?: boolean;
 }
 
 export const DEFAULT_OPTS: IOptions = {
-  // baseDir: '.',
-  // tsConfig: 'tsconfig.json',
+  baseDir: '.',
+  tsConfig: 'tsconfig.json',
   outDir: undefined,
   outFile: false,
   noEmit: false,

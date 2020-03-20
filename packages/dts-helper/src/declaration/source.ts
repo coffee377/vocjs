@@ -2,7 +2,7 @@ import ts from 'typescript';
 import { TSConfig } from '../utils/tsconfig';
 import { resolveFileName } from '../utils';
 import { TsError } from '../utils/error';
-import { Compiler } from './compiler';
+import { Compiler } from './transform';
 
 export interface DeclarationFile {
   fileName: string;
@@ -10,7 +10,7 @@ export interface DeclarationFile {
 }
 
 function getDeclarationFiles(tsconfig: TSConfig): DeclarationFile[] {
-  const { basePath, files, compilerOptions } = tsconfig;
+  const { basePath, files, compilerOptions, options } = tsconfig;
 
   const host = ts.createCompilerHost(compilerOptions, true) as ts.CompilerHost;
 
@@ -24,12 +24,11 @@ function getDeclarationFiles(tsconfig: TSConfig): DeclarationFile[] {
   // create Program
   const program = ts.createProgram(files, compilerOptions, host) as ts.Program;
 
+  // todo 拦截处理是这做的，需要传递参数 options
+  const tf: ts.CustomTransformers = Compiler.instance(options).run();
+
   // emit results
-  const emitResult = program.emit(undefined, undefined, undefined, true, {
-    before: [],
-    after: [],
-    afterDeclarations: [new Compiler().factory],
-  }) as ts.EmitResult;
+  const emitResult = program.emit(undefined, undefined, undefined, true, tf) as ts.EmitResult;
 
   const diagnostics = emitResult.diagnostics.concat(ts.getPreEmitDiagnostics(program) as ts.Diagnostic[]);
 

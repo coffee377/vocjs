@@ -50,11 +50,23 @@ function indentationOperator(value: string, previous: string) {
   return result;
 }
 
+function parse(value: string) {
+  switch (value.toLowerCase()) {
+    case 'true':
+      return true;
+    case 'false':
+      return false;
+    default:
+      return value;
+  }
+}
+
 program
   .name('dts')
   .version(version)
   .option('-d, --out-dir <directory>', 'emit output declaration file to the specified directory')
-  .option('-f, --out-file [file]', 'concatenate and emit output to single file.', false)
+  .option('-f, --out-file [file]', 'concatenate and emit output to single file.', parse, false)
+  .option('-m, --module [prefix]', 'specifies the module prefix name.', parse, true)
   .option('-E, --noEmit', 'do not emit output', false)
   .option('-C, --no-comment', 'do not emit comments to output', false)
   .option('-V, --verbose', 'display detailed log information', false)
@@ -70,6 +82,7 @@ export interface CommandOptions {
   version: string;
   outDir: string;
   outFile: boolean | string;
+  module: boolean | string;
   noEmit: boolean;
   comment: boolean;
   verbose: boolean;
