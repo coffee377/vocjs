@@ -32,3 +32,5 @@ Options:
 ```
 
 ### CHANGE LOG
+
+- :pencil2: Fixing Missing declaration file
