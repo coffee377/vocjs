@@ -11,7 +11,7 @@
     "bin",
     "docs",
     "lib",
-    "types",
+    "index.d.ts",
     "README.md"
   ],
   "scripts": {
