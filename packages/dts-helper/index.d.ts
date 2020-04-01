@@ -47,6 +47,11 @@ declare module "dts-helper/options" {
          */
         outFile?: boolean | string;
         /**
+         * @description exportEquals 导出功能
+         * @default false
+         */
+        exportEquals?: boolean;
+        /**
          * @description
          * @default false
          */
@@ -192,6 +197,14 @@ declare module "dts-helper/declaration/transform/visitor/module-name-resolve" {
     }
     export default ModuleNameResolveVisitor;
 }
+declare module "dts-helper/declaration/transform/visitor/export-equals-resolve" {
+    import AbstractVisitor from "dts-helper/declaration/transform/visitor/abstract";
+    class ExportEqualsResolveVisitor extends AbstractVisitor {
+        test: (node: any) => boolean;
+        visitor: (sourceFile: any) => (node: any) => any;
+    }
+    export default ExportEqualsResolveVisitor;
+}
 declare module "dts-helper/declaration/transform/visitor" {
     import BaseVisitor, { IVisitor, VisitorOptions, VisitorType } from "dts-helper/declaration/transform/visitor/abstract";
     class Visitors {
@@ -306,6 +319,7 @@ declare module "dts-helper/client/options" {
         outFile: boolean | string;
         module: boolean | string;
         noEmit: boolean;
+        exportEquals: boolean;
         comment: boolean;
         verbose: boolean;
         include: string[];

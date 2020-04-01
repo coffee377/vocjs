@@ -7,27 +7,15 @@
   },
   "main": "lib/index.js",
   "types": "index.d.ts",
-  "files": [
-    "bin",
-    "docs",
-    "lib",
-    "index.d.ts",
-    "README.md"
-  ],
+  "files": ["bin", "lib", "index.d.ts", "README.md"],
   "scripts": {
     "dts": "node bin/cli.js -f -m",
-    "compile": "tsc",
-    "build": "babel src -d lib -x .ts",
+    "compile": "babel src -d lib -x .ts",
+    "build": "yarn compile && yarn dts",
     "build:watch": "babel src -d lib -x .ts -w",
     "test": "jest"
   },
-  "keywords": [
-    "TypeScript",
-    "tsc",
-    "dts",
-    "declaration",
-    "tool"
-  ],
+  "keywords": ["TypeScript", "tsc", "dts", "declaration", "tool"],
   "repository": {
     "type": "git",
     "url": "https://github.com/coffee377/vocjs.git"

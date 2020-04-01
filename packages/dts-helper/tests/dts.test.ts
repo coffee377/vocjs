@@ -5,20 +5,21 @@ import { getConfig } from '../src/utils/tsconfig';
 import { VisitorType } from '../src/declaration/transform';
 
 test('dts', () => {
-  const relative = '../../kylin-client';
+  const relative = 'D:\\fe\\grid-layout\\packages\\grid-layout-react';
   // const relative = '..';
 
-  const root = path.resolve(__dirname, relative, 'tsconfig.json');
+  const root = path.resolve(relative, 'tsconfig.json');
 
   const opts: IOptions = {
     ...DEFAULT_OPTS,
-    outDir: 'types-test',
+    outDir: 'types',
     // outFile: 'index-test.d.ts',
     outFile: false,
     modulePrefix: true,
+    exportEquals: false,
   };
 
-  const tsconfig = getConfig(undefined, opts);
+  const tsconfig = getConfig(root, opts);
 
   run(tsconfig, opts);
 });

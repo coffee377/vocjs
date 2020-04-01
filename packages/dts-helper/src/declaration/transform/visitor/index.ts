@@ -2,6 +2,7 @@ import BaseVisitor, { IVisitor, VisitorOptions, VisitorType } from './abstract';
 import ImportPathResolveVisitor from './import-path-resolve';
 import ExportPathResolveVisitor from './export-path-resolve';
 import ModuleNameResolveVisitor from './module-name-resolve';
+import ExportEqualsResolveVisitor from './export-equals-resolve';
 
 class Visitors {
   private static ins: Visitors;
@@ -16,7 +17,12 @@ class Visitors {
 
   run(): IVisitor[] {
     const opts: VisitorOptions = { ...this.options, visitorType: VisitorType.AFTER_DECLARATIONS };
-    return [new ImportPathResolveVisitor(opts), new ExportPathResolveVisitor(opts), new ModuleNameResolveVisitor(opts)];
+    return [
+      new ImportPathResolveVisitor(opts),
+      new ExportPathResolveVisitor(opts),
+      new ModuleNameResolveVisitor(opts),
+      new ExportEqualsResolveVisitor(opts),
+    ];
   }
 
   add = (visitor: IVisitor, opts?: any) => {};

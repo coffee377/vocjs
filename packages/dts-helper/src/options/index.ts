@@ -31,6 +31,11 @@ export interface IOptions {
    */
   outFile?: boolean | string;
   /**
+   * @description exportEquals 导出功能
+   * @default false
+   */
+  exportEquals?: boolean;
+  /**
    * @description
    * @default false
    */
@@ -52,6 +57,7 @@ export const DEFAULT_OPTS: IOptions = {
   tsConfig: 'tsconfig.json',
   outDir: undefined,
   outFile: false,
+  exportEquals: false,
   noEmit: false,
   include: [],
   exclude: ['**/*.+(d|spec|test).ts'],
