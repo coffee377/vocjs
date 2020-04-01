@@ -68,6 +68,7 @@ program
   .option('-f, --out-file [file]', 'concatenate and emit output to single file.', parse, false)
   .option('-m, --module [prefix]', 'specifies the module prefix name.', parse, true)
   .option('-E, --noEmit', 'do not emit output', false)
+  .option('-e, --export-equals', 'export Equals', false)
   .option('-C, --no-comment', 'do not emit comments to output', false)
   .option('-V, --verbose', 'display detailed log information', false)
   .option<string[]>('-i, --include <items>', 'specifies the file to include', collectList, [])
@@ -84,6 +85,7 @@ export interface CommandOptions {
   outFile: boolean | string;
   module: boolean | string;
   noEmit: boolean;
+  exportEquals: boolean;
   comment: boolean;
   verbose: boolean;
   include: string[];

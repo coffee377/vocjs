@@ -2,13 +2,26 @@ import { cmdOpts } from './options';
 import { IOptions } from '../options';
 import { emit } from '../declaration';
 
-const { outDir, outFile, module, noEmit, comment, verbose, include, exclude, lineBreak: eol, indent } = cmdOpts;
+const {
+  outDir,
+  outFile,
+  module,
+  noEmit,
+  exportEquals,
+  comment,
+  verbose,
+  include,
+  exclude,
+  lineBreak: eol,
+  indent,
+} = cmdOpts;
 
 const opts: IOptions = {
   exclude,
   include,
   indent,
   noEmit,
+  exportEquals,
   outDir,
   outFile,
   modulePrefix: module,
