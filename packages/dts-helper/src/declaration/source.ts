@@ -30,7 +30,8 @@ function getDeclarationFiles(tsconfig: TSConfig): DeclarationFile[] {
   // emit results
   const emitResult = program.emit(undefined, undefined, undefined, true, tf) as ts.EmitResult;
 
-  const diagnostics = emitResult.diagnostics.concat(ts.getPreEmitDiagnostics(program) as ts.Diagnostic[]);
+  // const diagnostics = emitResult.diagnostics.concat(ts.getPreEmitDiagnostics(program) as ts.Diagnostic[]);
+  const diagnostics = emitResult.diagnostics as ts.Diagnostic[];
 
   if (diagnostics.length > 0) {
     throw TsError(diagnostics);
