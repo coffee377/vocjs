@@ -65,7 +65,7 @@ abstract class AbstractVisitor implements IVisitor {
     if (modules) {
       // eslint-disable-next-line no-restricted-syntax
       for (const [k, v] of modules.entries()) {
-        if (v && v.isExternalLibraryImport) {
+        if ((v && v.isExternalLibraryImport) || k.match(/^[a-zA-Z].*/)) {
           externalModuleNames.push(k);
         }
       }
