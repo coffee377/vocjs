@@ -1,3 +1,4 @@
-import build from './build';
+// import build from './build';
 
-export default build;
+// export default build;
+export * from './babel';

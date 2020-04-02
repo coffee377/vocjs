@@ -1,6 +1,7 @@
 import { join } from 'path';
 import slash from 'slash';
-import getBabelTransformConfig from './getBabelTransformConfig';
+
+import { getBabelTransformOptions } from './getBabelConfig';
 
 interface IRegisterBabelOpts {
   cwd: string;
@@ -9,7 +10,7 @@ interface IRegisterBabelOpts {
 
 const registerBabel = (opts: IRegisterBabelOpts) => {
   const { cwd, only } = opts;
-  const { opts: babelConfig } = getBabelTransformConfig({
+  const { opts: babelConfig } = getBabelTransformOptions({
     target: 'node',
     typescript: true,
     modules: 'esm',

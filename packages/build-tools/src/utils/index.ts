@@ -1,10 +1,9 @@
-import { join } from 'path';
-import { existsSync, readFileSync, statSync } from 'fs';
+import { join, basename, extname, dirname } from 'path';
+import { existsSync, readFileSync } from 'fs';
 import { readConfigFile } from 'typescript';
-// eslint-disable-next-line import/no-unresolved
-import { ModulesType } from './types';
+import { ModulesType } from '../types';
 
-export const getTargetPath: (cwd: string, modules: ModulesType) => string = (cwd, modules) => {
+const getDestFolder = (modules: ModulesType): string => {
   let targetDir: string;
   switch (modules) {
     case 'esm':
@@ -17,7 +16,7 @@ export const getTargetPath: (cwd: string, modules: ModulesType) => string = (cwd
     default:
       targetDir = 'dist';
   }
-  return join(cwd, targetDir);
+  return targetDir;
 };
 
 export interface FileOpts {
@@ -49,15 +48,9 @@ const parseTypeScriptConfig = (path: string) => {
   return result.config;
 };
 
-function getTSConfig() {
-  // const tsconfigPath = join(cwd, 'tsconfig.json');
-  // const templateTsconfigPath = join(__dirname, '../template/tsconfig.json');
-  //
-  // if (existsSync(tsconfigPath)) {
-  //   return getTsconfigCompilerOptions(tsconfigPath) || {};
-  // }
-  // if (rootPath && existsSync(join(rootPath, 'tsconfig.json'))) {
-  //   return getTsconfigCompilerOptions(join(rootPath, 'tsconfig.json')) || {};
-  // }
-  // return getTsconfigCompilerOptions(templateTsconfigPath) || {};
-}
+const withExtension = (filename: string, ext: string = '.js') => {
+  const newBasename = basename(filename, extname(filename)) + ext;
+  return join(dirname(filename), newBasename);
+};
+
+export { getDestFolder, withExtension };

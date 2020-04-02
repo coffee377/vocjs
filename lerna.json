@@ -8,7 +8,7 @@
       "npmClientArgs": []
     },
     "publish": {
-      "ignoreChanges": ["*.md", "**/test/**"]
+      "ignoreChanges": ["**/*.md", "**/*.test.ts", "**/*.e2e.ts", "**/fixtures/**", "**/test/**"]
     }
   }
 }

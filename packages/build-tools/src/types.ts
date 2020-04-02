@@ -3,7 +3,7 @@ import { PluginItem, TransformOptions } from '@babel/core';
 /**
  * 打包工具
  */
-export type BundleType = 'babel' | 'webpack' | 'rollup';
+export type BundleTool = 'babel' | 'webpack' | 'rollup';
 
 /**
  * 模块类型
@@ -16,25 +16,20 @@ export type ModulesType = 'cjs' | 'umd' | 'esm';
 export type Logger = (message: string) => void;
 
 /**
- * 打包输出通用配置
+ * 打包输出配置
  */
-interface IBundleTypeOutput {
+interface IBundleOutput {
   /**
    * @description 打包类型
    * @default babel
    */
-  type?: BundleType;
+  type?: BundleTool;
 
   /**
    * @description 输出模块类型
    * @default esm
    */
   modules?: ModulesType;
-
-  /**
-   * @description 输出文件
-   */
-  file?: string;
 
   /**
    * @description 是否压缩
@@ -49,7 +44,7 @@ interface IBundleTypeOutput {
   removeComment?: boolean;
 }
 
-interface IEsm extends IBundleTypeOutput {
+interface IEsm extends IBundleOutput {
   /**
    * @description 是否使用 mjs 扩展名
    * @default false
@@ -59,7 +54,7 @@ interface IEsm extends IBundleTypeOutput {
   importLibToEs?: boolean;
 }
 
-export interface ICjs extends IBundleTypeOutput {
+export interface ICjs extends IBundleOutput {
   lazy?: boolean;
 }
 
@@ -67,7 +62,7 @@ interface IStringObject {
   [prop: string]: string;
 }
 
-interface IUmd extends IBundleTypeOutput {
+interface IUmd extends IBundleOutput {
   globals?: IStringObject;
   name?: string;
   minFile?: boolean;
@@ -76,7 +71,7 @@ interface IUmd extends IBundleTypeOutput {
 }
 
 /**
- * NOD API 编译参数
+ * NODE API 编译参数
  */
 export interface IBundleOptions {
   /**
@@ -89,17 +84,17 @@ export interface IBundleOptions {
    * @description esm
    * @default babel
    */
-  esm?: BundleType | IEsm | false;
+  esm?: BundleTool | IEsm | false;
   /**
    * @description cjs
    * @default false
    */
-  cjs?: BundleType | ICjs | false;
+  cjs?: BundleTool | ICjs | false;
   /**
    * @description umd
    * @default false
    */
-  umd?: BundleType | IUmd | false;
+  umd?: BundleTool | IUmd | false;
   /**
    * @description babel 额外插件
    * @default []
@@ -125,21 +120,19 @@ export interface IOpts {
    * @default false
    */
   watch?: boolean;
-
-  /**
-   * @description 配置文件
-   */
-  bundleOpts: IBundleOptions;
-
-  /**
-   * @description 命令行构建参数
-   */
-  buildArgs?: IBundleOptions;
+  include?: string[];
+  exclude?: string[];
+  // /**
+  //  * @description 配置文件
+  //  */
+  // bundleOpts: IBundleOptions;
+  // /**
+  //  * @description 命令行构建参数
+  //  */
+  // buildArgs?: IBundleOptions;
   /**
    * @description 根目录
    */
   // rootPath?: string;
   // rootConfig?: IBundleOptions;
 }
-
-// export function babel(options?: TransformOptions): NodeJS.ReadWriteStream;

@@ -1,53 +1,61 @@
 import { extname } from 'path';
-import { TransformOptions } from '@babel/core';
-import { ModulesType } from '../types/index.d';
-// eslint-disable-next-line import/no-unresolved
+import { PluginItem, TransformOptions } from '@babel/core';
+import { ModulesType } from '../types';
 
-interface IGetBabelConfigOpts {
+export interface IBabelConfigOpts {
   /**
    * @description 目标环境
    * @default node
    */
-  target: 'browser' | 'node';
-
+  target?: 'browser' | 'node';
   /**
    * @description 模块类型
+   * @default esm
    */
-  modules: ModulesType;
-
+  modules?: ModulesType;
+  /**
+   * @description 是否 TS
+   * @default false
+   */
   typescript?: boolean;
   runtimeHelpers?: boolean;
-  filePath?: string;
+  /**
+   * @description 是否压缩代码
+   * @default false
+   */
   minified?: boolean;
+  /**
+   * @description 是否保留注释
+   * @default true
+   */
   comments?: boolean;
+  nodeVersion?: number;
+  filePath?: string;
   browserFiles?: {
     [value: string]: any;
   };
-  nodeVersion?: number;
   nodeFiles?: {
     [value: string]: any;
   };
-  lazy?: boolean;
 }
 
-export default function(opts: IGetBabelConfigOpts): TransformOptions {
+function getBabelTransformOptions(opts: IBabelConfigOpts): TransformOptions {
   const {
     target,
     typescript,
     modules,
     runtimeHelpers,
-    filePath,
     minified,
     comments,
+    filePath,
     browserFiles,
     nodeFiles,
     nodeVersion,
-    lazy,
   } = opts;
   let isBrowser = target === 'browser';
 
   if (filePath) {
-    if (extname(filePath).match(/[jt]sx$/)) {
+    if (extname(filePath).match(/\.[jt]sx?$/)) {
       isBrowser = true;
     } else if (isBrowser) {
       if (nodeFiles.includes(filePath)) isBrowser = false;
@@ -56,16 +64,16 @@ export default function(opts: IGetBabelConfigOpts): TransformOptions {
 
   const targets = isBrowser ? { browsers: ['last 2 versions', 'IE 10'] } : { node: nodeVersion || true || 8 };
 
-  const type = modules.match(/cjs|umd/) ? modules : false;
+  const type = modules?.match(/cjs|umd/) ? modules : false;
 
   // todo 是否有必要暴露用户配置接口
-  const presetEnvOpts = { useBuiltIns: 'usage', corejs: 3, targets, modules: type };
+  const presetEnvOpts = { useBuiltIns: 'usage', corejs: 3, modules: type, targets };
 
   const transformOpts: TransformOptions = {
     presets: [[require.resolve('@babel/preset-env'), presetEnvOpts]],
     plugins: [],
-    minified: minified || false,
-    comments: comments || true,
+    minified: minified === undefined ? false : minified,
+    comments: comments === undefined ? true : comments,
   };
 
   /* presets */
@@ -88,3 +96,23 @@ export default function(opts: IGetBabelConfigOpts): TransformOptions {
 
   return transformOpts;
 }
+
+interface BabelConfig {
+  /**
+   * @description babel 插件
+   * @default []
+   */
+  plugins?: PluginItem[];
+  /**
+   * @description babel 预设
+   * @default []
+   */
+  presets?: PluginItem[];
+}
+
+const getBabelOptions = (opts: IBabelConfigOpts): BabelConfig => {
+  const { presets, plugins } = getBabelTransformOptions(opts);
+  return { presets, plugins };
+};
+
+export { getBabelOptions, getBabelTransformOptions };

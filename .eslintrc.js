@@ -15,10 +15,11 @@ module.exports = {
     'no-plusplus': 0,
     'no-console': 0,
     'no-shadow': 0,
-    'no-bitwise':0,
+    'no-bitwise': 0,
     'no-empty': 0,
+    'no-unused-expressions': 0,
     'dot-notation': 0,
     'global-require': 1,
-    'class-methods-use-this':0
+    'class-methods-use-this': 0,
   },
 };
