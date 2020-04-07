@@ -1,5 +1,5 @@
 {
-  "name": "build-tools",
+  "name": "build-toolkit",
   "version": "0.0.3",
   "description": "Build tools",
   "bin": {
