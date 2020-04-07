@@ -1,11 +1,14 @@
-import { BabelFileResult, transform as babelTransform, TransformOptions } from '@babel/core';
+import { transform as babelTransform, TransformOptions } from '@babel/core';
 
-export interface ITransformOpts {
-  file: {
-    contents: string;
-    path: string;
-  };
-  babelTransformOptions: TransformOptions;
+export interface ICode {
+  /**
+   * @description 文件路径
+   */
+  path: string;
+  /**
+   * @description 文件内容
+   */
+  contents: string;
 }
 
 const CALLER = {
@@ -14,14 +17,15 @@ const CALLER = {
 
 /**
  * 代码编译转换
+ * @param code
  * @param opts
  */
-const transform = (opts: ITransformOpts): BabelFileResult => {
-  const { file, babelTransformOptions } = opts;
-  if (file.contents && file.path) {
-    return babelTransform(file.contents, {
-      ...babelTransformOptions,
-      filename: file.path,
+const transform = (code: ICode, opts?: TransformOptions) => {
+  const { path, contents } = code;
+  if (path && contents) {
+    return babelTransform(contents, {
+      ...opts,
+      filename: path,
       babelrc: false,
       caller: CALLER,
     });

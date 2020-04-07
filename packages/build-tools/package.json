@@ -7,16 +7,24 @@
   },
   "main": "lib/index.js",
   "types": "types/index.d.ts",
-  "files": ["bin", "lib", "types/index.d.ts"],
+  "files": [
+    "bin",
+    "lib",
+    "types/index.d.ts"
+  ],
   "scripts": {
     "dts": "dts -i **/src/**",
-    "prebuild": "rimraf lib types",
-    "build": "babel src -d lib --extensions .ts && yarn dts",
+    "prebuild": "rimraf lib dist types",
+    "build": "yarn prebuild && babel src -d lib --extensions .ts && yarn dts",
     "build:watch": "babel src -d lib -x .ts -w",
+    "prepublish": "yarn build",
     "test": "jest",
     "test2": "node bin/cli.js"
   },
-  "keywords": ["build", "tools"],
+  "keywords": [
+    "build",
+    "tools"
+  ],
   "author": {
     "name": "coffee377",
     "email": "coffee377@dingtalk.com"
@@ -45,21 +53,23 @@
     "core-js": "3",
     "cross-env": "^7.0.2",
     "dot": "^1.1.3",
+    "dts-helper": "^1.1.3",
     "jest": "^25.2.4",
     "lodash": "^4.17.15",
     "prettier": "^2.0.2",
     "rimraf": "^3.0.0",
     "slash": "^3.0.0",
+    "tapable": "^1.1.3",
     "through2": "^3.0.1",
     "typescript": "^3.7.5",
-    "vinyl-fs": "^3.0.3",
-    "dts-helper": "^1.1.3"
+    "vinyl-fs": "^3.0.3"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.3",
     "@types/highlight.js": "^9.12.3",
     "@types/lodash": "^4.14.149",
     "@types/rimraf": "^2.0.3",
+    "@types/tapable": "^1.0.5",
     "@types/through2": "^2.0.34",
     "@types/vinyl-fs": "^2.4.11",
     "@types/webpack-dev-server": "^3.10.0",

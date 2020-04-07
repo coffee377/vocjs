@@ -1,6 +1,7 @@
 import { join, basename, extname, dirname } from 'path';
 import { existsSync, readFileSync } from 'fs';
 import { readConfigFile } from 'typescript';
+import slash from 'slash';
 import { ModulesType } from '../types';
 
 const getDestFolder = (modules: ModulesType): string => {
@@ -50,7 +51,7 @@ const parseTypeScriptConfig = (path: string) => {
 
 const withExtension = (filename: string, ext: string = '.js') => {
   const newBasename = basename(filename, extname(filename)) + ext;
-  return join(dirname(filename), newBasename);
+  return slash(join(dirname(filename), newBasename));
 };
 
 export { getDestFolder, withExtension };

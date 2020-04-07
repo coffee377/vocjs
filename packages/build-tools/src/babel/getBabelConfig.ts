@@ -18,6 +18,9 @@ export interface IBabelConfigOpts {
    * @default false
    */
   typescript?: boolean;
+  /**
+   * @description 运行时帮助
+   */
   runtimeHelpers?: boolean;
   /**
    * @description 是否压缩代码

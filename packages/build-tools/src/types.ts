@@ -3,12 +3,12 @@ import { PluginItem, TransformOptions } from '@babel/core';
 /**
  * 打包工具
  */
-export type BundleTool = 'babel' | 'webpack' | 'rollup';
+export type BundleTool = 'babel' | 'webpack';
 
 /**
  * 模块类型
  */
-export type ModulesType = 'cjs' | 'umd' | 'esm';
+export type ModulesType = 'esm' | 'cjs' | 'umd';
 
 /**
  * 日志工具
@@ -19,6 +19,11 @@ export type Logger = (message: string) => void;
  * 打包输出配置
  */
 interface IBundleOutput {
+  /**
+   * @description 输出目录
+   */
+  dest?: string;
+
   /**
    * @description 打包类型
    * @default babel
@@ -44,7 +49,7 @@ interface IBundleOutput {
   removeComment?: boolean;
 }
 
-interface IEsm extends IBundleOutput {
+export interface IEsm extends IBundleOutput {
   /**
    * @description 是否使用 mjs 扩展名
    * @default false
@@ -62,10 +67,10 @@ interface IStringObject {
   [prop: string]: string;
 }
 
-interface IUmd extends IBundleOutput {
+export interface IUmd extends IBundleOutput {
   globals?: IStringObject;
   name?: string;
-  minFile?: boolean;
+  // minFile?: boolean;
   // file?: string;
   sourcemap?: boolean;
 }
@@ -79,7 +84,7 @@ export interface IBundleOptions {
    * @default index.[js|ts|jsx|tsx]
    */
   entry?: string | string[];
-  file?: string;
+  // file?: string;
   /**
    * @description esm
    * @default babel
@@ -107,32 +112,32 @@ export interface IBundleOptions {
   extraBabelPresets?: PluginItem[];
 }
 
-/**
- * 客户端命令行参数
- */
-export interface IOpts {
-  /**
-   * @description 命令运行路径
-   */
-  cwd: string;
-  /**
-   * @description 监听文件变化
-   * @default false
-   */
-  watch?: boolean;
-  include?: string[];
-  exclude?: string[];
-  // /**
-  //  * @description 配置文件
-  //  */
-  // bundleOpts: IBundleOptions;
-  // /**
-  //  * @description 命令行构建参数
-  //  */
-  // buildArgs?: IBundleOptions;
-  /**
-   * @description 根目录
-   */
-  // rootPath?: string;
-  // rootConfig?: IBundleOptions;
-}
+// /**
+//  * 客户端命令行参数
+//  */
+// export interface IOpts {
+//   /**
+//    * @description 命令运行路径
+//    */
+//   cwd?: string;
+//   /**
+//    * @description 监听文件变化
+//    * @default false
+//    */
+//   watch?: boolean;
+//   include?: string[];
+//   exclude?: string[];
+//   // /**
+//   //  * @description 配置文件
+//   //  */
+//   // bundleOpts: IBundleOptions;
+//   // /**
+//   //  * @description 命令行构建参数
+//   //  */
+//   // buildArgs?: IBundleOptions;
+//   /**
+//    * @description 根目录
+//    */
+//   // rootPath?: string;
+//   // rootConfig?: IBundleOptions;
+// }
