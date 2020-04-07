@@ -8,6 +8,7 @@
       "npmClientArgs": []
     },
     "publish": {
+      "allowBranch": ["master", "dev", "feature/*"],
       "ignoreChanges": ["**/*.md", "**/*.test.ts", "**/*.e2e.ts", "**/fixtures/**", "**/test/**"]
     }
   }
