@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package com.voc.fr;
+
+option go_package = "fr";
+
+option java_multiple_files = true;
+option java_package = "com.voc.fr.lic";
+option java_outer_classname = "LicenseProto";
+
+enum LicenseVersion {
+    F8 = 0;
+    F9 = 1;
+    F10 = 2;
+}
+
+message LicenseRequest {
+    bytes registration_information = 1;
+    LicenseVersion version = 2;
+    string access_token = 3;
+    string username = 4;
+    string password = 5;
+}
+
+message LicenseResponse {
+    string file_name = 1; // 文件名称
+    string dead_line = 2; // 授权截止时间
+    bytes contents = 3; // 授权文件内容
+}
+
+service LicenseService {
+    rpc grant (stream LicenseRequest) returns (stream LicenseResponse);
+}

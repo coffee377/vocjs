@@ -1,0 +1,47 @@
+{
+  "name": "grpc-ts",
+  "version": "0.0.1",
+  "description": "grpc",
+  "keywords": ["grpc", "ts"],
+  "author": "WuYujie <coffee377@dingtalk.com>",
+  "homepage": "https://github.com/coffee377/vocjs#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "type": "types/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": ["descriptor", "lib"],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coffee377/vocjs.git"
+  },
+  "scripts": {
+    "dts": "dts -d types",
+    "build": "node script/build.js",
+    "server": "node dist/tests/LicenseServer.js",
+    "client": "node dist/tests/LicenseClient.js",
+    "prepublish": "yarn build",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/coffee377/vocjs/issues"
+  },
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.3",
+    "google-protobuf": "^3.11.4",
+    "grpc": "1.24.2",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@types/google-protobuf": "^3.7.2",
+    "@types/lodash": "^4.14.149",
+    "typescript": "^3.8.3",
+    "build-toolkit": "0.0.3",
+    "dts-helper": "^1.1.3"
+  }
+}
