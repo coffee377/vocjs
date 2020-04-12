@@ -1,6 +1,6 @@
 {
   "name": "build-toolkit",
-  "version": "0.0.4-alpha.0",
+  "version": "0.0.4-alpha.1",
   "description": "Build tools",
   "bin": {
     "voc": "./bin/cli.js"
