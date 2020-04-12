@@ -1,12 +1,17 @@
 #! /usr/bin/env node
-const p = require.resolve('build-toolkit').replace('index.js', 'babel');
+const { Babel } = require('build-toolkit');
 
-// eslint-disable-next-line import/no-dynamic-require
-const { Babel } = require(p);
-
-const babel = new Babel({ typescript: true, modules: 'cjs' });
-babel.hooks.options.tap('comments', opts => {
-  return { ...opts, comments: false, minified: false };
+const babel = new Babel({ typescript: true, dest: 'lib' });
+babel.hook.options.tap('comments', opts => {
+  opts.preset('env').tap(options => ({
+    ...options,
+    modules: 'cjs',
+  }));
+  opts
+    // .minified(true)
+    .comments(false)
+    .end();
+  // return { ...opts, comments: false, minified: false };
 });
 
-babel.run();
+babel.run().catch(err => {});

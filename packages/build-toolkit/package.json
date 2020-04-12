@@ -10,7 +10,7 @@
   "files": [
     "bin",
     "lib",
-    "types/index.d.ts"
+    "types"
   ],
   "scripts": {
     "dts": "dts -i **/src/**",
@@ -76,5 +76,6 @@
     "babel-jest": "^25.1.0",
     "camelcase": "^5.3.1",
     "webpack-cli": "^3.3.11"
-  }
+  },
+  "gitHead": "3500ff2d61ed0b2d3a0a4f43f0010046c40f72af"
 }
