@@ -1,8 +1,11 @@
 {
   "name": "grpc-ts",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "description": "grpc",
-  "keywords": ["grpc", "ts"],
+  "keywords": [
+    "grpc",
+    "ts"
+  ],
   "author": "WuYujie <coffee377@dingtalk.com>",
   "homepage": "https://github.com/coffee377/vocjs#readme",
   "license": "ISC",
@@ -12,7 +15,10 @@
   "directories": {
     "lib": "lib"
   },
-  "files": ["descriptor", "lib"],
+  "files": [
+    "descriptor",
+    "lib"
+  ],
   "publishConfig": {
     "registry": "http://registry.npmjs.org/"
   },
@@ -40,8 +46,8 @@
   "devDependencies": {
     "@types/google-protobuf": "^3.7.2",
     "@types/lodash": "^4.14.149",
-    "typescript": "^3.8.3",
-    "build-toolkit": "0.0.3",
-    "dts-helper": "^1.1.3"
+    "build-toolkit": "^0.0.4-alpha.0",
+    "dts-helper": "^1.1.3",
+    "typescript": "^3.8.3"
   }
 }

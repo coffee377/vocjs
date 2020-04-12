@@ -1,13 +1,17 @@
 {
   "name": "build-toolkit",
-  "version": "0.0.3",
+  "version": "0.0.4-alpha.0",
   "description": "Build tools",
   "bin": {
     "voc": "./bin/cli.js"
   },
   "main": "lib/index.js",
   "types": "types/index.d.ts",
-  "files": ["bin", "lib", "types/index.d.ts"],
+  "files": [
+    "bin",
+    "lib",
+    "types/index.d.ts"
+  ],
   "scripts": {
     "dts": "dts -i **/src/**",
     "prebuild": "rimraf es lib dist types",
@@ -16,7 +20,10 @@
     "prepublish": "yarn build",
     "test": "jest"
   },
-  "keywords": ["build", "tools"],
+  "keywords": [
+    "build",
+    "tools"
+  ],
   "author": {
     "name": "coffee377",
     "email": "coffee377@dingtalk.com"
