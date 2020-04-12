@@ -7,24 +7,16 @@
   },
   "main": "lib/index.js",
   "types": "types/index.d.ts",
-  "files": [
-    "bin",
-    "lib",
-    "types/index.d.ts"
-  ],
+  "files": ["bin", "lib", "types/index.d.ts"],
   "scripts": {
     "dts": "dts -i **/src/**",
-    "prebuild": "rimraf lib dist types",
-    "build": "yarn prebuild && babel src -d lib --extensions .ts && yarn dts",
+    "prebuild": "rimraf es lib dist types",
+    "build": "yarn prebuild && node script/build.js && yarn dts",
     "build:watch": "babel src -d lib -x .ts -w",
     "prepublish": "yarn build",
-    "test": "jest",
-    "test2": "node bin/cli.js"
+    "test": "jest"
   },
-  "keywords": [
-    "build",
-    "tools"
-  ],
+  "keywords": ["build", "tools"],
   "author": {
     "name": "coffee377",
     "email": "coffee377@dingtalk.com"

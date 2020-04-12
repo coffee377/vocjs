@@ -3,11 +3,12 @@ import through from 'through2';
 import { TransformOptions } from '@babel/core';
 import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from 'tapable';
 import transform from './transform';
-import { getBabelTransformOptions, IBabelConfigOpts } from './getBabelConfig';
 import { withExtension } from '../utils';
 import Stats from './Stats';
+import DefaultBabelOptions from './DefaultOptions';
+import Options, { IConfig } from './Options';
 
-export interface CompileOptions extends IBabelConfigOpts {
+export interface CompileOptions extends IConfig {
   cwd?: string;
   src?: string;
   dest?: string;
@@ -52,36 +53,36 @@ const write = async (opts: IWriteOptions, babelOpts?: TransformOptions, ext?: st
   return null;
 };
 
-interface CompilerHooks {
+interface CompilerHook {
   initialize: SyncHook;
-  options: SyncWaterfallHook<TransformOptions>;
+  options: SyncWaterfallHook<Options>;
   done: SyncHook<Stats>;
   afterDone: SyncHook<Stats>;
   failed: SyncHook<Error>;
 }
 
 class Compiler {
-  readonly hooks: CompilerHooks;
+  readonly hook: CompilerHook;
 
   running: boolean;
 
   watchMode: boolean;
 
-  options: CompileOptions;
+  private readonly compilerOptions: CompileOptions;
 
-  private babelTransformOptions: TransformOptions;
+  options: Options;
 
   constructor(opts?: CompileOptions) {
-    this.hooks = Object.freeze({
+    this.hook = Object.freeze({
       initialize: new SyncHook([]),
-      options: new SyncWaterfallHook(['babelOptions']),
+      options: new SyncWaterfallHook(['Options']),
       done: new AsyncSeriesHook(['stats']),
       afterDone: new SyncHook(['stats']),
       failed: new SyncHook(['error']),
     });
     this.running = false;
     this.watchMode = false;
-    this.options = { ...opts };
+    this.compilerOptions = { ...opts };
   }
 
   async run() {
@@ -95,24 +96,24 @@ class Compiler {
     const finalCallback = (err: Error, stats: Stats) => {
       this.running = false;
       if (err) {
-        this.hooks.failed.call(err);
+        this.hook.failed.call(err);
       }
-      this.hooks.afterDone.call(stats);
+      this.hook.afterDone.call(stats);
     };
 
     this.running = true;
 
-    const { cwd, src, dest, exclude } = this.options;
+    const { cwd, src, dest, exclude } = this.compilerOptions;
 
     const writeOpts: IWriteOptions = {
       globs: src || 'src/**/*',
-      destFolder: dest || 'dist',
+      destFolder: dest || 'es',
       srcOpts: { allowEmpty: true, cwd, ignore: exclude || [] },
       destOpts: { cwd },
     };
     this.registerBabelOptions();
 
-    const err = await write(writeOpts, this.babelTransformOptions, '.js');
+    const err = await write(writeOpts, this.options.toOptions(), '.js');
     if (err) stats.errors.push(err);
 
     stats.endTime = Date.now();
@@ -122,7 +123,10 @@ class Compiler {
   }
 
   private registerBabelOptions() {
-    this.babelTransformOptions = this.hooks.options.call(getBabelTransformOptions(this.options));
+    DefaultBabelOptions.tap(config => {
+      return { ...config, ...this.compilerOptions };
+    });
+    this.options = this.hook.options.call(DefaultBabelOptions);
   }
 
   async watch() {

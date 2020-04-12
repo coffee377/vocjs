@@ -1,9 +1,9 @@
 import { DestOptions, SrcOptions } from 'vinyl-fs';
 import { TransformOptions } from '@babel/core';
 import { SyncHook, SyncWaterfallHook } from 'tapable';
-import { IBabelConfigOpts } from "./getBabelConfig";
 import Stats from "./Stats";
-export interface CompileOptions extends IBabelConfigOpts {
+import Options, { IConfig } from "./Options";
+export interface CompileOptions extends IConfig {
     cwd?: string;
     src?: string;
     dest?: string;
@@ -23,19 +23,19 @@ export interface IWriteOptions {
  * @param ext
  */
 declare const write: (opts: IWriteOptions, babelOpts?: TransformOptions, ext?: string) => Promise<Error>;
-interface CompilerHooks {
+interface CompilerHook {
     initialize: SyncHook;
-    options: SyncWaterfallHook<TransformOptions>;
+    options: SyncWaterfallHook<Options>;
     done: SyncHook<Stats>;
     afterDone: SyncHook<Stats>;
     failed: SyncHook<Error>;
 }
 declare class Compiler {
-    readonly hooks: CompilerHooks;
+    readonly hook: CompilerHook;
     running: boolean;
     watchMode: boolean;
-    options: CompileOptions;
-    private babelTransformOptions;
+    private readonly compilerOptions;
+    options: Options;
     constructor(opts?: CompileOptions);
     run(): Promise<Stats>;
     private registerBabelOptions;
