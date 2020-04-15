@@ -3,8 +3,8 @@ import Chained from './Chained';
 class ChainedSet<Parent, Value> extends Chained<Parent> {
   store: Set<Value>;
 
-  constructor(parent: Parent) {
-    super(parent);
+  constructor(name: string, parent: Parent) {
+    super(name, parent);
     this.store = new Set<Value>();
   }
 
@@ -18,19 +18,18 @@ class ChainedSet<Parent, Value> extends Chained<Parent> {
     return this;
   }
 
-  clear() {
+  clear(): this {
     this.store.clear();
     return this;
   }
 
-  delete(key: string) {
-    // this.store.delete(value);
+  delete(value: Value): this {
+    this.store.delete(value);
     return this;
   }
 
-  has(key: string): boolean {
-    // return this.store.has(value);
-    return false;
+  has(value: string): boolean {
+    return this.store.has(value);
   }
 
   merge(arr: Value[]) {
@@ -40,15 +39,6 @@ class ChainedSet<Parent, Value> extends Chained<Parent> {
 
   values(): Value[] {
     return [...this.store];
-  }
-
-  when(condition: boolean, whenTruthy: (obj: this) => void, whenFalsy: (obj: this) => void) {
-    if (condition) {
-      whenTruthy(this);
-    } else {
-      whenFalsy(this);
-    }
-    return this;
   }
 }
 

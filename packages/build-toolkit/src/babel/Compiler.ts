@@ -5,8 +5,8 @@ import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from 'tapable';
 import transform from './transform';
 import { withExtension } from '../utils';
 import Stats from './Stats';
-import DefaultBabelOptions from './DefaultOptions';
-import Options, { IConfig } from './Options';
+import DefaultBabelOptions, { IConfig } from './DefaultOptions';
+import BabelOptions from './BabelOptions';
 
 export interface CompileOptions extends IConfig {
   cwd?: string;
@@ -55,7 +55,7 @@ const write = async (opts: IWriteOptions, babelOpts?: TransformOptions, ext?: st
 
 interface CompilerHook {
   initialize: SyncHook;
-  options: SyncWaterfallHook<Options>;
+  options: SyncWaterfallHook<BabelOptions>;
   done: SyncHook<Stats>;
   afterDone: SyncHook<Stats>;
   failed: SyncHook<Error>;
@@ -70,7 +70,7 @@ class Compiler {
 
   private readonly compilerOptions: CompileOptions;
 
-  options: Options;
+  options: BabelOptions;
 
   constructor(opts?: CompileOptions) {
     this.hook = Object.freeze({
@@ -113,7 +113,7 @@ class Compiler {
     };
     this.registerBabelOptions();
 
-    const err = await write(writeOpts, this.options.toOptions(), '.js');
+    const err = await write(writeOpts, this.options.toConfig(), '.js');
     if (err) stats.errors.push(err);
 
     stats.endTime = Date.now();
@@ -123,9 +123,6 @@ class Compiler {
   }
 
   private registerBabelOptions() {
-    DefaultBabelOptions.tap(config => {
-      return { ...config, ...this.compilerOptions };
-    });
     this.options = this.hook.options.call(DefaultBabelOptions);
   }
 

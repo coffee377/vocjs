@@ -1,26 +1,53 @@
 import { PluginItem, PluginOptions, PluginTarget } from '@babel/core';
 import { ChainedMap, Orderable } from '../chain';
-import Options from './Options';
+import BabelOptions from './BabelOptions';
+import ChainedSet from '../chain/ChainedSet';
 
-type Target = PluginTarget;
+/**
+ * 选项函数
+ */
+type OptionsFn<O = object, C = any> = (options: O, config: C) => O;
 
-class BabelPlugin extends ChainedMap<Options, any> implements Orderable {
+/**
+ * 条件函数
+ */
+type ConditionFn<C = any> = (name: string, config: C) => boolean | undefined;
+
+class BabelPlugin extends ChainedMap<BabelOptions> implements Orderable {
+  config: any;
+
+  /**
+   * @description 优先级，数组越小优先级越高
+   */
   private priority: number;
 
   private beforeName: string;
 
   private afterName: string;
 
-  private target: Target;
+  /**
+   * @description 插件目标对象
+   */
+  private pluginTarget: PluginTarget;
 
-  private options: PluginOptions;
+  /**
+   * @description 插件配置
+   */
+  private pluginOptions: PluginOptions;
 
-  private merging: string;
+  protected readonly pluginOptionsFnSet: ChainedSet<BabelPlugin, OptionsFn>;
 
-  constructor(parent: Options, name: string, num: number = 0) {
-    super(parent);
-    this.name = name;
-    this.priority = num;
+  private conditionFn: ConditionFn;
+
+  /**
+   * @description 插件合并项
+   */
+  private mergingName: string;
+
+  constructor(name: string, parent: BabelOptions, priority: number) {
+    super(name, parent);
+    this.priority = priority;
+    this.pluginOptionsFnSet = new ChainedSet<BabelPlugin, OptionsFn>('pluginOptionsFnSet', this);
   }
 
   after(name: string): this {
@@ -46,47 +73,78 @@ class BabelPlugin extends ChainedMap<Options, any> implements Orderable {
     return this;
   }
 
-  use(target: Target, options?: PluginOptions, merging?: string): this {
-    this.target = target;
-    this.options = options;
-    this.merging = merging;
+  /**
+   * 插件目标
+   * @param target
+   */
+  use(target: PluginTarget): this {
+    this.pluginTarget = target;
     return this;
   }
 
-  useless(): this {
-    this.target = undefined;
-    this.options = undefined;
+  /**
+   * 插件配置参数
+   * @param options
+   */
+  options<Options = PluginOptions>(options?: Options): this {
+    this.pluginOptions = options;
     return this;
   }
 
-  tap(fn: (options: PluginOptions) => PluginOptions): this {
-    this.options = fn(this.options);
+  merging(name?: string): this {
+    this.mergingName = name;
+    return this;
+  }
+
+  /**
+   * @description 修改插件参数
+   * @param optionsFn
+   */
+  tap<Options = PluginOptions, Config = any>(optionsFn: OptionsFn<Options, Config>): this {
+    this.pluginOptionsFnSet.add(optionsFn);
     return this;
   }
 
   public isValid(): boolean {
-    return this.target !== undefined;
+    return this.pluginTarget !== undefined;
   }
 
   isTarget() {
     return true;
   }
 
-  toConfig(condition?: boolean): PluginItem {
-    if (condition) {
-      this.emit(condition);
+  emit<Config = any>(conditionFn?: ConditionFn<Config>, config?: Config): this {
+    if (config) {
+      this.config = config;
     }
+    if (conditionFn) {
+      this.conditionFn = conditionFn;
+    }
+    if (this.conditionFn) {
+      this.condition = this.conditionFn(this.name, this.config || {});
+    }
+    if (this.pluginOptionsFnSet) {
+      this.pluginOptionsFnSet.values().forEach(fn => {
+        this.pluginOptions = fn(this.pluginOptions, this.config);
+      });
+    }
+    super.emit();
+    return this;
+  }
+
+  toPluginItem(): PluginItem {
+    this.emit();
     if (this.isValid() && this.isTarget()) {
-      if (this.merging) {
-        return [this.target, this.options || {}, this.merging];
+      if (this.mergingName) {
+        return [this.pluginTarget, this.pluginOptions || {}, this.mergingName];
       }
-      if (!this.merging && this.options && Object.keys(this.options).length > 0) {
-        return [this.target, this.options];
+      if (!this.mergingName && this.pluginOptions && Object.keys(this.pluginOptions).length > 0) {
+        return [this.pluginTarget, this.pluginOptions];
       }
 
-      return this.target;
+      return this.pluginTarget;
     }
-    return this.target;
+    return this.pluginTarget;
   }
 }
 

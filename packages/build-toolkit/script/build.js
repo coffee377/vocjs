@@ -10,6 +10,7 @@ require('@babel/register')({
   // only: ['**/chain/*.ts'],
 });
 
+const dts = require('dts-helper');
 const { Babel } = require('../src/babel');
 
 const babel = new Babel({ dest: 'lib' });
@@ -29,3 +30,9 @@ babel.hook.options.tap('opts', opts => {
     .end();
 });
 babel.run().then(r => {});
+
+// dts
+dts.emit({ outDir: 'types', include: ['**/src/**'] }).catch(err => {
+  console.log(err);
+  process.exit(1);
+});
