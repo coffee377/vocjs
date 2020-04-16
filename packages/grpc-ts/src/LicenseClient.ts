@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { Client } from '../index';
+import { Client } from './index';
 
 class LicenseClient<any, any> extends Client {
   descriptor(): string {

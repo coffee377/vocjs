@@ -110,6 +110,7 @@ dist
 **/packages/*/output
 **/*.lock
 **/lib
+**/es
 **/esm
 **/docs
 **/dist

@@ -1,17 +1,30 @@
 #! /usr/bin/env node
 const { Babel } = require('build-toolkit');
+const dts = require('dts-helper');
 
-const babel = new Babel({ typescript: true, dest: 'lib' });
-babel.hook.options.tap('comments', opts => {
-  opts.preset('env').tap(options => ({
-    ...options,
-    modules: 'cjs',
-  }));
-  opts
-    // .minified(true)
-    .comments(false)
-    .end();
-  // return { ...opts, comments: false, minified: false };
+// esm
+const esm = new Babel({ src: ['src/**', 'demo/**'], dest: 'es', isTS: true, modules: false });
+esm.hook.options.tap('comments', opts => {
+  opts.comments(false).end();
 });
 
-babel.run().catch(err => {});
+esm.run().catch(err => {
+  console.log(err);
+  process.exit(1);
+});
+
+// cjs
+const cjs = new Babel({ src: ['src/**', 'demo/**'], dest: 'lib', isTS: true, modules: 'cjs' });
+cjs.hook.options.tap('comments', opts => {
+  opts.comments(false).end();
+});
+
+cjs.run().catch(err => {
+  console.log(err);
+  process.exit(1);
+});
+
+dts.emit({ outDir: 'types' }).catch(err => {
+  console.log(err);
+  process.exit(1);
+});

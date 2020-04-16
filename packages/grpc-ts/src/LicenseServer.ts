@@ -1,5 +1,5 @@
-import { Server, ServerOptions } from '../index';
-import { GrpcServiceOptions } from '../decorator/GrpcService';
+import { Server, ServerOptions } from './index';
+import { GrpcServiceOptions } from './decorator/GrpcService';
 
 // import { GrpcService } from '../decorator/GrpcService';
 
