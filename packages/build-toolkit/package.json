@@ -54,6 +54,7 @@
     "dot": "^1.1.3",
     "dts-helper": "^1.1.3",
     "events": "^3.1.0",
+    "gulp-filter": "^6.0.0",
     "jest": "^25.2.4",
     "lodash": "^4.17.15",
     "prettier": "^2.0.2",
@@ -66,6 +67,7 @@
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.3",
+    "@types/gulp-filter": "^3.0.33",
     "@types/highlight.js": "^9.12.3",
     "@types/lodash": "^4.14.149",
     "@types/rimraf": "^2.0.3",

@@ -2,17 +2,19 @@ import vfs, { DestOptions, SrcOptions } from 'vinyl-fs';
 import through from 'through2';
 import { TransformOptions } from '@babel/core';
 import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from 'tapable';
+import filter from 'gulp-filter';
 import transform from './transform';
 import { withExtension } from '../utils';
 import Stats from './Stats';
-import DefaultBabelOptions, { IConfig } from './DefaultOptions';
-import BabelOptions from './BabelOptions';
+import DefaultBabelOptions from './DefaultOptions';
+import BabelOptions, { IBabelConfig } from './BabelOptions';
 
-export interface CompileOptions extends IConfig {
+export interface CompileOptions extends IBabelConfig {
   cwd?: string;
   src?: string;
   dest?: string;
   exclude?: string[];
+  verbose?: boolean;
   watch?: boolean;
 }
 
@@ -34,6 +36,7 @@ const write = async (opts: IWriteOptions, babelOpts?: TransformOptions, ext?: st
   try {
     vfs
       .src(globs, srcOpts)
+      .pipe(filter(file => !file.path.match(/\.(spec|test)\.[jt]sx?$/)))
       .pipe(
         through.obj((file, enc, callback) => {
           const result = transform(file, babelOpts);
@@ -83,6 +86,10 @@ class Compiler {
     this.running = false;
     this.watchMode = false;
     this.compilerOptions = { ...opts };
+    this.hook.options.tap('init-config', options => {
+      options.tap(config => ({ ...config, ...this.compilerOptions }));
+      return options;
+    });
   }
 
   async run() {
@@ -113,6 +120,9 @@ class Compiler {
     };
     this.registerBabelOptions();
 
+    if (this.compilerOptions.verbose) {
+      console.log(this.options.toString());
+    }
     const err = await write(writeOpts, this.options.toConfig(), '.js');
     if (err) stats.errors.push(err);
 

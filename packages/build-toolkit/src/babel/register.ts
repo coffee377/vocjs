@@ -7,7 +7,7 @@ const register = (opts: BabelOptions = DefaultOptions) => {
     extensions: ['.es6', '.es', '.jsx', '.js', '.mjs', '.tsx', '.ts'],
     babelrc: false,
     cache: false,
-    ...opts.toOptions(),
+    ...opts.toConfig(),
   });
 };
 

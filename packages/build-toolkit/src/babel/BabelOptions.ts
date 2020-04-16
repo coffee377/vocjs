@@ -4,7 +4,6 @@ import Plugin from './BabelPlugin';
 import Preset from './BabelPreset';
 import ObjectValue from './utils';
 import { ModuleType } from './options';
-import { PluginName, PresetName } from './DefaultOptions';
 
 export interface IBabelConfig {
   isDev?: boolean;
@@ -81,36 +80,13 @@ class BabelOptions extends ChainedMap {
       if (name === 'presets') {
         value = (value as ChainedMap<string, Preset>)
           .values()
-          .map(preset =>
-            preset.emit<IBabelConfig>((name, config) => {
-              switch (name) {
-                case PresetName.TYPE_SCRIPT:
-                  return config.isTS;
-                case PresetName.REACT:
-                  return config.isReact;
-                case PresetName.ENV:
-                default:
-                  return undefined;
-              }
-            }, this.config),
-          )
+          .map(preset => preset.emit(this.config))
           .filter(preset => preset.isValid())
           .map(preset => preset.toPluginItem());
       } else if (name === 'plugins') {
         value = (value as ChainedMap<string, Plugin>)
           .values()
-          .map(plugin =>
-            plugin.emit<IBabelConfig>((name, config) => {
-              switch (name) {
-                case PluginName.TRANSFORM_RUNTIME:
-                  return config.runtimeHelper;
-                case PluginName.IMPORT:
-                  return config.isAntd;
-                default:
-                  return undefined;
-              }
-            }, this.config),
-          )
+          .map(plugin => plugin.emit(this.config))
           .filter(plugin => plugin.isValid())
           .map(plugin => plugin.toPluginItem());
       }

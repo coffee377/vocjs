@@ -8,11 +8,6 @@ import ChainedSet from '../chain/ChainedSet';
  */
 type OptionsFn<O = object, C = any> = (options: O, config: C) => O;
 
-/**
- * 条件函数
- */
-type ConditionFn<C = any> = (name: string, config: C) => boolean | undefined;
-
 class BabelPlugin extends ChainedMap<BabelOptions> implements Orderable {
   config: any;
 
@@ -35,9 +30,9 @@ class BabelPlugin extends ChainedMap<BabelOptions> implements Orderable {
    */
   private pluginOptions: PluginOptions;
 
-  protected readonly pluginOptionsFnSet: ChainedSet<BabelPlugin, OptionsFn>;
+  private readonly pluginOptionsFnSet: ChainedSet<BabelPlugin, OptionsFn>;
 
-  private conditionFn: ConditionFn;
+  // private conditionFn: ConditionFn;
 
   /**
    * @description 插件合并项
@@ -113,27 +108,29 @@ class BabelPlugin extends ChainedMap<BabelOptions> implements Orderable {
     return true;
   }
 
-  emit<Config = any>(conditionFn?: ConditionFn<Config>, config?: Config): this {
+  emit<Config = any>(config?: Config): this {
     if (config) {
       this.config = config;
-    }
-    if (conditionFn) {
-      this.conditionFn = conditionFn;
-    }
-    if (this.conditionFn) {
-      this.condition = this.conditionFn(this.name, this.config || {});
     }
     if (this.pluginOptionsFnSet) {
       this.pluginOptionsFnSet.values().forEach(fn => {
         this.pluginOptions = fn(this.pluginOptions, this.config);
       });
     }
-    super.emit();
+    /* 剔除 null ， undefined */
+    if (this.pluginOptions) {
+      Object.keys(this.pluginOptions).forEach(key => {
+        if (this.pluginOptions[key] === undefined || this.pluginOptions[key] === null) {
+          delete this.pluginOptions[key];
+        }
+      });
+    }
+    super.emit(this.config);
     return this;
   }
 
-  toPluginItem(): PluginItem {
-    this.emit();
+  toPluginItem<Config = any>(config?: Config): PluginItem {
+    this.emit(config);
     if (this.isValid() && this.isTarget()) {
       if (this.mergingName) {
         return [this.pluginTarget, this.pluginOptions || {}, this.mergingName];

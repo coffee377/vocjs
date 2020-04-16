@@ -1,22 +1,17 @@
-import BabelOptions, { PluginName, PresetName } from './DefaultOptions';
+import DefaultOptions, { PluginName, PresetName } from './DefaultOptions';
 import ObjectValue from './utils';
 import { EnvOptions } from './options';
 import { IBabelConfig } from './BabelOptions';
 
-test('babel options', () => {
-  const opts = BabelOptions;
+describe('babel options', () => {
 
-  opts.tap<IBabelConfig>(config => {
-    return { ...config, isReact: true, isDev: true, isTS: true, modules: 'cjs', isAntd: true, runtimeHelper: false };
+  test('cjs & ts & react', () => {
+    const opts = DefaultOptions;
+
+    opts.tap<IBabelConfig>(config => ({ ...config, isTS: true, modules: 'cjs', isReact: true }));
+
+    expect(opts.toConfig()).toMatchSnapshot();
   });
-
-  // opts.preset(PresetName.TYPE_SCRIPT).order(-1);
-  // opts.minified(null);
-  // opts.comments(undefined);
-
-  // opts.preset(PresetName.ENV).tap<EnvOptions>((options, config) => ({ ...options, modules: 'umd' }));
-  opts.plugin(PluginName.IMPORT).tap((options, config) => ({ ...options, style: 'css' }));
-  console.log(opts.toString());
 });
 
 test('ObjectValue', () => {
@@ -24,5 +19,5 @@ test('ObjectValue', () => {
   o.add<string>('a', '1');
   o.add<string>('b', '2');
   o.remove('b');
-  o.toObject();
+  expect(o.toObject()).toEqual({ a: '1' });
 });

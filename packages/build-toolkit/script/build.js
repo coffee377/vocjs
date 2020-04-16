@@ -13,17 +13,10 @@ require('@babel/register')({
 const dts = require('dts-helper');
 const { Babel } = require('../src/babel');
 
-const babel = new Babel({ dest: 'lib' });
+const babel = new Babel({ dest: 'lib', isTS: true, modules: 'cjs' });
 
 // cjs
 babel.hook.options.tap('opts', opts => {
-  opts.tap(config => {
-    return { ...config, typescript: true };
-  });
-  opts.preset('env').tap(options => ({
-    ...options,
-    modules: 'cjs',
-  }));
   opts
     // .minified(true)
     .comments(false)

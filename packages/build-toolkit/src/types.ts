@@ -1,4 +1,4 @@
-import { PluginItem, TransformOptions } from '@babel/core';
+import { PluginItem } from '@babel/core';
 
 /**
  * 打包工具
@@ -111,33 +111,3 @@ export interface IBundleOptions {
    */
   extraBabelPresets?: PluginItem[];
 }
-
-// /**
-//  * 客户端命令行参数
-//  */
-// export interface IOpts {
-//   /**
-//    * @description 命令运行路径
-//    */
-//   cwd?: string;
-//   /**
-//    * @description 监听文件变化
-//    * @default false
-//    */
-//   watch?: boolean;
-//   include?: string[];
-//   exclude?: string[];
-//   // /**
-//   //  * @description 配置文件
-//   //  */
-//   // bundleOpts: IBundleOptions;
-//   // /**
-//   //  * @description 命令行构建参数
-//   //  */
-//   // buildArgs?: IBundleOptions;
-//   /**
-//    * @description 根目录
-//    */
-//   // rootPath?: string;
-//   // rootConfig?: IBundleOptions;
-// }

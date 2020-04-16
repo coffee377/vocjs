@@ -1,13 +1,32 @@
-class Chained<Parent> {
+/**
+ * @description 条件逻辑接口
+ */
+interface ICondition {
+  name: string;
+
+  conditionHandler: (name: string, ...args: any[]) => boolean;
+
+  truthyHandler: (truthy: this) => void;
+
+  falsyHandler: (falsy: this) => void;
+
+  emit(): this;
+}
+
+type ConditionFn<C = any> = (config: C, name: string) => boolean | undefined;
+type TruthyFn<O> = (obj: O) => void;
+type FalsyFn<O> = (obj: O) => void;
+
+class Chained<Parent> implements ICondition {
   name: string;
 
   protected parent: Parent;
 
-  protected condition: boolean;
+  protected conditionHandler: ConditionFn;
 
-  protected truthy: (truthy: this) => void;
+  protected truthyHandler: TruthyFn<this>;
 
-  protected falsy: (falsy: this) => void;
+  protected falsyHandler: FalsyFn<this>;
 
   constructor(name: string, parent: Parent) {
     this.name = name;
@@ -23,19 +42,43 @@ class Chained<Parent> {
     return this;
   }
 
-  when(condition: boolean, whenTruthy?: (truthy: this) => void, whenFalsy?: (falsy: this) => void): this {
-    this.condition = condition;
-    this.truthy = whenTruthy;
-    this.falsy = whenFalsy;
+  condition<Config = any>(conditionHandler: ConditionFn<Config>): this {
+    this.conditionHandler = conditionHandler;
     return this;
   }
 
-  emit(): this {
-    if (this.condition && this.truthy) {
-      this.truthy(this);
+  truthy(truthyHandler: TruthyFn<this>): this {
+    this.truthyHandler = truthyHandler;
+    return this;
+  }
+
+  falsy(falsyHandler: FalsyFn<this>): this {
+    this.falsyHandler = falsyHandler;
+    return this;
+  }
+
+  when(conditionHandler: ConditionFn, truthyHandler?: TruthyFn<this>, falsyHandler?: FalsyFn<this>): this {
+    this.conditionHandler = conditionHandler;
+    this.truthyHandler = truthyHandler;
+    this.falsyHandler = falsyHandler;
+    return this;
+  }
+
+  emit<C>(config?: C): this {
+    let condition: boolean;
+    if (this.conditionHandler) {
+      condition = this.conditionHandler(config, this.name);
     }
-    if (!!this.condition && this.falsy) {
-      this.falsy(this);
+    if (condition === undefined) {
+      return this;
+    }
+    /* 条件为真 */
+    if (condition && this.truthyHandler) {
+      this.truthyHandler(this);
+    }
+    /* 条件为假 */
+    if (!!condition && this.falsyHandler) {
+      this.falsyHandler(this);
     }
     return this;
   }

@@ -4,8 +4,6 @@ import ObjectValue from './utils';
 
 const opts = new BabelOptions();
 
-const { isReact, isTS, isAntd, runtimeHelper } = opts.config;
-
 enum PresetName {
   ENV = 'env',
   REACT = 'react',
@@ -29,27 +27,33 @@ opts
 opts
   .preset(PresetName.REACT)
   .order(2)
-  .when(isReact, truthy =>
-    truthy.use('@babel/preset-react').tap<ReactOptions, IBabelConfig>((options, config) => {
-      return ObjectValue.of(options)
-        .add<boolean>('development', config.isDev)
-        .toObject();
-    }),
-  )
+  .condition<IBabelConfig>(config => {
+    return config.isReact;
+  })
+  .truthy(handler => {
+    handler.use('@babel/preset-react');
+  })
+  .tap<ReactOptions, IBabelConfig>((options, config) => {
+    return { ...options, development: config.isDev };
+  })
   .end();
 
 opts
   .preset(PresetName.TYPE_SCRIPT)
   .order(3)
-  .when(isTS, truthy => {
-    truthy.use('@babel/preset-typescript').tap<TypeScriptOptions, IBabelConfig>((options, config) => {
-      const { isTS, isReact } = config;
-      return ObjectValue.of(options)
-        .add<boolean>('isTSX', isTS && isReact)
-        .add<boolean>('allExtensions', isTS && isReact)
-        .add<boolean>('allowNamespaces', true)
-        .toObject();
-    });
+  .condition<IBabelConfig>(config => {
+    return config.isTS;
+  })
+  .truthy(handler => {
+    handler.use('@babel/preset-typescript');
+  })
+  .tap<TypeScriptOptions, IBabelConfig>((options, config) => {
+    const { isTS, isReact } = config;
+    let isTSX: boolean;
+    if (isTS !== undefined && isReact !== undefined) {
+      isTSX = isTS && isReact;
+    }
+    return { ...options, isTSX, allExtensions: isTSX, allowNamespaces: true };
   })
   .end();
 
@@ -93,11 +97,20 @@ opts
 opts
   .plugin(PluginName.TRANSFORM_RUNTIME)
   .order(8)
-  .when(runtimeHelper, truthy => truthy.use('@babel/plugin-transform-runtime'));
+  .condition<IBabelConfig>(config => {
+    return config.runtimeHelper;
+  })
+  .truthy(handler => {
+    handler.use('@babel/plugin-transform-runtime');
+  });
+
 opts
   .plugin(PluginName.IMPORT)
   .order(9)
-  .when(isAntd, truthy => truthy.use('babel-plugin-import'))
+  .condition<IBabelConfig>(config => config.isAntd)
+  .truthy(fn => {
+    fn.use('babel-plugin-import');
+  })
   .options({
     libraryName: 'antd',
     libraryDirectory: 'lib',
