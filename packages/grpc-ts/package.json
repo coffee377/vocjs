@@ -11,7 +11,7 @@
   "license": "ISC",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "type": "types/index.d.ts",
+  "types": "types/index.d.ts",
   "directories": {
     "lib": "lib"
   },
