@@ -6,16 +6,6 @@ class ObjectValue {
   }
 
   add<Value = any>(name: string, value: Value): this {
-    // if (typeof value === 'boolean' || typeof value === 'string' || typeof value === 'number') {
-    //   this.obj[name] = value;
-    // }
-    // if (value instanceof String || value instanceof Boolean || value instanceof Number) {
-    //   this.obj[name] = value;
-    // }
-    // if (value instanceof Map) {
-    // }
-    // if (value instanceof Set) {
-    // }
     if (value !== undefined && value !== null) {
       this.obj[name] = value;
     }

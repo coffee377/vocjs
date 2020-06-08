@@ -1,9 +1,9 @@
 import { TransformOptions } from '@babel/core';
-import ChainedMap from '../chain/ChainedMap';
 import Plugin from './BabelPlugin';
 import Preset from './BabelPreset';
 import ObjectValue from './utils';
 import { ModuleType } from './options';
+import { ChainedMap } from '../chain';
 
 export interface IBabelConfig {
   isDev?: boolean;

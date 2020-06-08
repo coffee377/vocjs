@@ -4,10 +4,8 @@ import { EnvOptions } from './options';
 import { IBabelConfig } from './BabelOptions';
 
 describe('babel options', () => {
-
   test('cjs & ts & react', () => {
-    const opts = DefaultOptions;
-
+    const opts = new DefaultOptions();
     opts.tap<IBabelConfig>(config => ({ ...config, isTS: true, modules: 'cjs', isReact: true }));
 
     expect(opts.toConfig()).toMatchSnapshot();

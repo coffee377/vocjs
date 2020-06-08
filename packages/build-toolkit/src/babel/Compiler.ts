@@ -6,7 +6,7 @@ import filter from 'gulp-filter';
 import transform from './transform';
 import { withExtension } from '../utils';
 import Stats from './Stats';
-import DefaultBabelOptions from './DefaultOptions';
+import DefaultOptions from './DefaultOptions';
 import BabelOptions, { IBabelConfig } from './BabelOptions';
 
 export interface CompileOptions extends IBabelConfig {
@@ -133,7 +133,7 @@ class Compiler {
   }
 
   private registerBabelOptions() {
-    this.options = this.hook.options.call(DefaultBabelOptions);
+    this.options = this.hook.options.call(new DefaultOptions());
   }
 
   async watch() {

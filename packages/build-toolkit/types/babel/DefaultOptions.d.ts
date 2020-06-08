@@ -1,5 +1,4 @@
 import BabelOptions from "./BabelOptions";
-declare const opts: BabelOptions;
 declare enum PresetName {
     ENV = "env",
     REACT = "react",
@@ -16,4 +15,9 @@ declare enum PluginName {
     IMPORT = "import"
 }
 export { PresetName, PluginName };
-export default opts;
+declare class DefaultOptions extends BabelOptions {
+    constructor();
+    initPreset(): void;
+    initPlugins(): void;
+}
+export default DefaultOptions;

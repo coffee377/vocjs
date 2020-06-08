@@ -2,7 +2,7 @@ import Chained from './Chained';
 
 test('Calling .end() returns parent', () => {
   const parent = { parent: true };
-  const chain = new Chained(parent);
+  const chain = new Chained('', parent);
 
   expect(chain.end()).toBe(parent);
 });
