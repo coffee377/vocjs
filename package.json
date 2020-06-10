@@ -11,9 +11,9 @@
     "packages/*"
   ],
   "devDependencies": {
-    "cross-env": "^6.0.3",
-    "shelljs": "^0.8.3",
-    "@umijs/fabric": "^2.0.0",
-    "prettier": "^1.19.1"
+    "cross-env": "^7.0.2",
+    "shelljs": "^0.8.4",
+    "@umijs/fabric": "^2.1.0",
+    "prettier": "^2.0.5"
   }
 }
