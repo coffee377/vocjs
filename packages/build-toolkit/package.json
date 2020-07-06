@@ -7,7 +7,11 @@
   },
   "main": "lib/index.js",
   "types": "types/index.d.ts",
-  "files": ["bin", "lib", "types"],
+  "files": [
+    "bin",
+    "lib",
+    "types"
+  ],
   "scripts": {
     "prebuild": "rimraf es lib dist types",
     "build": "yarn prebuild && node script/build.js",
@@ -15,7 +19,10 @@
     "prepublish": "yarn build",
     "test": "jest"
   },
-  "keywords": ["build", "tools"],
+  "keywords": [
+    "build",
+    "tools"
+  ],
   "author": {
     "name": "coffee377",
     "email": "coffee377@dingtalk.com"
@@ -67,6 +74,7 @@
     "@types/through2": "^2.0.34",
     "@types/vinyl-fs": "^2.4.11",
     "@types/webpack-dev-server": "^3.10.0",
+    "rimraf": "^3.0.2",
     "webpack-cli": "^3.3.11"
   },
   "gitHead": "a987acc52f521afbab9959cb71f849f9c0814a58"

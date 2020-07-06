@@ -41,6 +41,7 @@
     "babel-loader": "^8.0.6",
     "dts-helper": "^1.1.3",
     "jest": "^25.1.0",
+    "rimraf": "^3.0.2",
     "typedoc": "^0.16.11",
     "typedoc-plugin-typescript-declaration": "^0.3.3",
     "typescript": "^3.8.3",

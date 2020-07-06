@@ -1,0 +1,21 @@
+{
+  "name": "@vocjs/bundler-babel",
+  "version": "0.0.1",
+  "description": "babel 打包工具",
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "types": "types/index",
+  "scripts": {
+    "prepack": "rimraf esm lib dist types",
+    "build": "yarn prepack && node script/build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vocjs/utils": "^0.1.0"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  }
+}

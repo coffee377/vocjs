@@ -1,9 +1,6 @@
-const { strictEslint } = require('@umijs/fabric');
-
 module.exports = {
-  ...strictEslint,
+  extends: [require.resolve('@umijs/fabric/dist/eslint')],
   rules: {
-    ...strictEslint.rules,
     'max-len': 0,
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/no-unused-vars': 1,

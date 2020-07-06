@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "module": "ESNext",
+    "target": "ESNext",
+    //    "sourceMap": true
+//    "lib": ["ES6", "ES2016.Array.Include", "DOM.Iterable"]
+  },
+  "exclude": ["node_modules"]
+}

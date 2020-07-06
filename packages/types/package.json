@@ -1,0 +1,19 @@
+{
+  "name": "@vocjs/types",
+  "version": "0.0.1",
+  "description": "vocjs 类型定义",
+  "types": "types/index",
+  "scripts": {
+    "prepack": "rimraf es lib dist types",
+    "build": "yarn prepack && tsc",
+    "build:watch": "yarn prepack && tsc -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@vocjs/utils",
+  "version": "0.1.0",
+  "description": "",
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "types": "./types/index",
+  "scripts": {
+    "prepack": "rimraf esm lib types",
+    "build": "yarn prepack && tsc -b tsconfig.esm.json tsconfig.cjs.json",
+    "build:watch": "tsc -b tsconfig.esm.json tsconfig.cjs.json -w"
+  },
+  "files": ["esm", "lib", "types"],
+  "keywords": ["util", "chain"],
+  "author": {
+    "name": "coffee377",
+    "email": "coffee377@dingtalk.com"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "slash": "^3.0.0"
+  }
+}

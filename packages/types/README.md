@@ -1,0 +1,2 @@
+# @vocjs/types
+

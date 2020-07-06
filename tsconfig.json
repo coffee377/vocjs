@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "module": "esnext",
-    "target": "esnext",
+    "module": "ES6",
+    "target": "ES6",
     "sourceMap": false,
     "jsx": "react",
     "esModuleInterop": true,
     "moduleResolution": "node",
     "allowJs": false,
     "removeComments": true,
-    "preserveConstEnums": true
+    "preserveConstEnums": true,
+    "experimentalDecorators": true
   }
 }
