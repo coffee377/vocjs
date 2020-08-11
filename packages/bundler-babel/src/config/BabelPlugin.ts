@@ -5,7 +5,7 @@ import BabelOptions from './BabelOptions';
 /**
  * 选项函数
  */
-type OptionsFn<O = object, C = any> = (options: O, config: C) => O;
+type OptionsFn<O = PluginOptions, C = any> = (options: O, config: C) => O;
 
 class BabelPlugin extends ChainedMap<BabelOptions> implements Orderable {
   config: any;
@@ -81,7 +81,7 @@ class BabelPlugin extends ChainedMap<BabelOptions> implements Orderable {
    * @param options
    */
   options<Options = PluginOptions>(options?: Options): this {
-    this.pluginOptions = options;
+    this.pluginOptions = (options as unknown) as PluginOptions;
     return this;
   }
 
@@ -95,7 +95,7 @@ class BabelPlugin extends ChainedMap<BabelOptions> implements Orderable {
    * @param optionsFn
    */
   tap<Options = PluginOptions, Config = any>(optionsFn: OptionsFn<Options, Config>): this {
-    this.pluginOptionsFnSet.add(optionsFn);
+    this.pluginOptionsFnSet.add((optionsFn as unknown) as OptionsFn);
     return this;
   }
 

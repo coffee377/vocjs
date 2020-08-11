@@ -1,8 +1,9 @@
 import { TransformOptions } from '@babel/core';
 import { ChainedMap } from '@vocjs/utils';
+import { AutoCssModulesOptions } from '@vocjs/babel-plugin-auto-css-modules';
 import Plugin from './BabelPlugin';
 import Preset from './BabelPreset';
-import ObjectValue from './utils';
+import ObjectValue from './ObjectValue';
 import { ModuleType } from './options';
 
 export interface IBabelConfig {
@@ -12,9 +13,12 @@ export interface IBabelConfig {
   isAntd?: boolean;
   runtimeHelper?: boolean;
   modules?: ModuleType;
-}
-interface IHook {
-  configChanged;
+  /**
+   * @description 启动 autoCssModules 插件
+   * @default true
+   */
+  cssModules?: boolean | AutoCssModulesOptions;
+  [key: string]: any;
 }
 
 class BabelOptions extends ChainedMap {

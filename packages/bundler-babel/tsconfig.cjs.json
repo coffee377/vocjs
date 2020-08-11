@@ -2,11 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "module": "ESNext",
+    "module": "CommonJS",
     "target": "ESNext",
-    "outDir": "esm",
-    "declarationDir": "typing",
-    "declaration": true
+    "outDir": "lib"
   },
   "exclude": ["node_modules"]
 }

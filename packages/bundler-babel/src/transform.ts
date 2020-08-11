@@ -1,36 +1,24 @@
 import { transform as babelTransform, TransformOptions } from '@babel/core';
 
-export interface ICode {
-  /**
-   * @description 文件路径
-   */
-  path: string;
-  /**
-   * @description 文件内容
-   */
-  contents: string;
-}
-
 const CALLER = {
-  name: 'build-tools',
+  name: '@vocjs/bundler-babel',
 };
 
 /**
  * 代码编译转换
+ * @param filename
  * @param code
  * @param opts
  */
-const transform = (code: ICode, opts?: TransformOptions) => {
-  const { path, contents } = code;
-  if (path && contents) {
-    return babelTransform(contents, {
-      ...opts,
-      filename: path,
-      babelrc: false,
-      caller: CALLER,
+const transform = (filename: string, code: string, opts?: TransformOptions) => {
+  return new Promise((resolve, reject) => {
+    babelTransform(code, { ...opts, caller: CALLER, filename }, (err, result) => {
+      if (err) reject(err);
+      else resolve(result);
     });
-  }
-  return null;
+  });
 };
 
 export default transform;
+
+export { CALLER };
