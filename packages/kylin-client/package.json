@@ -1,6 +1,7 @@
 {
   "name": "kylin-client",
   "version": "1.0.6",
+  "private": true,
   "description": "Kylin 客户端 JavaScript 实现",
   "browser": "dist/kylin-client.js",
   "main": "lib/index.js",

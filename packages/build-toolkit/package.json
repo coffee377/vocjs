@@ -1,6 +1,7 @@
 {
   "name": "build-toolkit",
   "version": "0.1.1-alpha.2",
+  "private": true,
   "description": "Build tools",
   "bin": {
     "voc": "./bin/cli.js"
