@@ -10,6 +10,9 @@
     "build": "yarn prepack && tsc -b tsconfig.esm.json tsconfig.cjs.json",
     "build:watch": "tsc -b tsconfig.esm.json tsconfig.cjs.json -w"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "esm",
     "lib",
@@ -29,5 +32,6 @@
   },
   "dependencies": {
     "slash": "^3.0.0"
-  }
+  },
+  "gitHead": "297190ed8f527d3fc030a2b20b2c96debd9d9c68"
 }

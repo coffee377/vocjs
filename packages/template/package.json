@@ -18,5 +18,6 @@
   "devDependencies": {
     "@types/dot": "^1.1.4",
     "rimraf": "^3.0.2"
-  }
+  },
+  "gitHead": "297190ed8f527d3fc030a2b20b2c96debd9d9c68"
 }

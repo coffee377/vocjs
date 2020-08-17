@@ -13,6 +13,9 @@
     "build": "npm run prepack && tsc -b tsconfig.json tsconfig.cjs.json",
     "build:watch": "npm run prepack && tsc -b tsconfig.json tsconfig.cjs.json -w"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [],
   "author": "coffee377",
   "license": "MIT",
@@ -31,5 +34,6 @@
   },
   "devDependencies": {
     "rimraf": "^3.0.2"
-  }
+  },
+  "gitHead": "297190ed8f527d3fc030a2b20b2c96debd9d9c68"
 }
