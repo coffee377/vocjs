@@ -1,12 +1,12 @@
 {
   "name": "@vocjs/babel-plugin-auto-css-modules",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "auto-css-modules",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "prepack": "rimraf lib",
-    "build": "npm run prepack && tsc",
+    "prebuild": "rimraf lib",
+    "build": "npm run prebuild && tsc",
     "build:watch": "tsc -w",
     "test": "babel src/demo.js"
   },
