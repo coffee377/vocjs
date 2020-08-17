@@ -1,6 +1,6 @@
 {
   "name": "@vocjs/bundler-babel",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "babel 打包工具",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -9,9 +9,9 @@
     "bundler-babel": "./bin/babel.js"
   },
   "scripts": {
-    "prepack": "rimraf esm lib typing",
-    "build": "npm run prepack && tsc -b tsconfig.json tsconfig.cjs.json",
-    "build:watch": "npm run prepack && tsc -b tsconfig.json tsconfig.cjs.json -w"
+    "prebuild": "rimraf esm lib typing",
+    "build": "npm run prebuild && tsc -b tsconfig.json tsconfig.cjs.json",
+    "build:watch": "npm run prebuild && tsc -b tsconfig.json tsconfig.cjs.json -w"
   },
   "publishConfig": {
     "access": "public"
@@ -29,7 +29,7 @@
     "@babel/runtime": "^7.11.2",
     "@babel/runtime-corejs3": "^7.11.2",
     "@vocjs/babel-plugin-auto-css-modules": "^1.0.1",
-    "@vocjs/utils": "^0.1.1",
+    "@vocjs/utils": "^0.1.3",
     "typescript": "^3.9.7"
   },
   "devDependencies": {

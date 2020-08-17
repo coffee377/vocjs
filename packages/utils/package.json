@@ -1,23 +1,17 @@
 {
   "name": "@vocjs/utils",
-  "version": "0.1.1",
-  "description": "",
+  "version": "0.1.3",
+  "description": "开发工具包",
   "main": "lib/index.js",
   "module": "esm/index.js",
   "types": "./types/index",
   "scripts": {
-    "prepack": "rimraf esm lib types",
-    "build": "yarn prepack && tsc -b tsconfig.esm.json tsconfig.cjs.json",
+    "build": "rimraf esm lib types && tsc -b tsconfig.esm.json tsconfig.cjs.json",
     "build:watch": "tsc -b tsconfig.esm.json tsconfig.cjs.json -w"
   },
   "publishConfig": {
     "access": "public"
   },
-  "files": [
-    "esm",
-    "lib",
-    "types"
-  ],
   "keywords": [
     "util",
     "chain"
