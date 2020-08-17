@@ -1,6 +1,6 @@
 {
   "name": "@vocjs/utils",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -10,8 +10,15 @@
     "build": "yarn prepack && tsc -b tsconfig.esm.json tsconfig.cjs.json",
     "build:watch": "tsc -b tsconfig.esm.json tsconfig.cjs.json -w"
   },
-  "files": ["esm", "lib", "types"],
-  "keywords": ["util", "chain"],
+  "files": [
+    "esm",
+    "lib",
+    "types"
+  ],
+  "keywords": [
+    "util",
+    "chain"
+  ],
   "author": {
     "name": "coffee377",
     "email": "coffee377@dingtalk.com"

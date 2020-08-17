@@ -1,6 +1,6 @@
 {
   "name": "@vocjs/types",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "vocjs 类型定义",
   "types": "types/index",
   "scripts": {
@@ -14,6 +14,5 @@
   "devDependencies": {
     "rimraf": "^3.0.2",
     "typescript": "^3.9.5"
-  },
-  "dependencies": {}
+  }
 }
