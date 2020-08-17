@@ -1,6 +1,6 @@
 {
   "name": "@vocjs/types",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "description": "vocjs 类型定义",
   "types": "types/index",
