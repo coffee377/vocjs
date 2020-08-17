@@ -33,7 +33,7 @@ class DefaultBabelOptions extends BabelOptions {
   initPreset() {
     this.preset(PresetName.ENV)
       .order(1)
-      .use(require.resolve('@babel/preset-env'))
+      .use('@babel/preset-env')
       .options()
       .tap<EnvOptions, IBabelConfig>((options, config) => {
         return ObjectValue.of(options)
@@ -50,7 +50,7 @@ class DefaultBabelOptions extends BabelOptions {
         return config.isReact;
       })
       .truthy((handler) => {
-        handler.use(require.resolve('@babel/preset-react'));
+        handler.use('@babel/preset-react');
       })
       .tap<ReactOptions, IBabelConfig>((options, config) => {
         return { ...options, development: config.isDev };
@@ -63,7 +63,7 @@ class DefaultBabelOptions extends BabelOptions {
         return config.isTS;
       })
       .truthy((handler) => {
-        handler.use(require.resolve('@babel/preset-typescript'));
+        handler.use('@babel/preset-typescript');
       })
       .tap<TypeScriptOptions, IBabelConfig>((options, config) => {
         const { isTS, isReact } = config;
@@ -109,7 +109,7 @@ class DefaultBabelOptions extends BabelOptions {
         return config.runtimeHelper;
       })
       .truthy((handler) => {
-        handler.use(require.resolve('@babel/plugin-transform-runtime'));
+        handler.use('@babel/plugin-transform-runtime');
       })
       .options({ corejs: 3 });
 
@@ -117,7 +117,7 @@ class DefaultBabelOptions extends BabelOptions {
       .order(2)
       .condition<IBabelConfig>((config) => config.isAntd)
       .truthy((fn) => {
-        fn.use(require.resolve('babel-plugin-import'));
+        fn.use('babel-plugin-import');
       })
       .options({
         libraryName: 'antd',

@@ -8,4 +8,4 @@ const withExtension = (filename: string, ext: string = '.js') => {
   return slash(join(dirname(filename), newBasename));
 };
 
-export { withExtension };
+export { withExtension, slash };

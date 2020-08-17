@@ -15,7 +15,7 @@
   },
   "keywords": [],
   "author": "coffee377",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",

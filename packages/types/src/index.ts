@@ -21,12 +21,19 @@ interface BaseIConfig {
     [key: string]: string;
   };
   devtool?: DevTool;
+  /**
+   * @description 开发服务配置
+   */
   devServer?: WebpackDevServer.Configuration;
   /**
    * @description limit can be specified via loader options and defaults to no limit.
    * @see https://www.npmjs.com/package/url-loader
    */
   inlineLimit?: boolean | number | string;
+  /**
+   * @description Prevent bundling of certain imported packages and instead retrieve these external dependencies at runtime.
+   * @see https://webpack.js.org/configuration/externals/
+   */
   externals?: webpack.ExternalsElement | webpack.ExternalsElement[];
   /**
    * @see https://www.webpackjs.com/plugins/define-plugin/
@@ -34,10 +41,20 @@ interface BaseIConfig {
   define?: {
     [key: string]: webpack.DefinePlugin.CodeValueObject;
   };
-  ssr?: any;
+  /**
+   * @description 生产环境是否使用 hash
+   */
   hash?: boolean;
+  /**
+   * @description 输出目录
+   * @default dist
+   */
   outputPath?: string;
+  /**
+   * @description 发布基准路径
+   */
   publicPath?: string;
+  ssr?: any;
   [key: string]: any;
 }
 

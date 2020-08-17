@@ -1,9 +1,12 @@
 import webpack, { Configuration } from 'webpack';
 import Config from 'webpack-chain';
-import { join } from 'path';
+import path, { join } from 'path';
 import { IConfig, IBundlerConfigType, BundlerConfigType } from '@vocjs/types';
 import WebpackBar from 'webpackbar';
 import CopyPlugin from 'copy-webpack-plugin';
+import WebpackDevServer from 'webpack-dev-server';
+import { BabelOptions, DefaultBabelOptions, IBabelConfig } from '@vocjs/bundler-babel';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import resolveDefine from '../resolveDefine';
 
 export interface IOpts {
@@ -21,31 +24,20 @@ export interface IOpts {
   targets?: any;
   browserslist?: any;
   bundleImplementor?: typeof webpack;
-  modifyBabelOpts?: (opts: object) => Promise<any>;
-  modifyBabelPresetOpts?: (opts: object) => Promise<any>;
-  chainWebpack?: (webpackConfig: any, args: any) => Promise<any>;
-  miniCSSExtractPluginPath?: string;
+  // modifyBabelOpts?: (opts: object) => Promise<any>;
+  // modifyBabelPresetOpts?: (opts: object) => Promise<any>;
+  chainBabel?: (babelConfig: BabelOptions) => Promise<BabelOptions>;
+  chainWebpack?: (webpackConfig: Config, args: any) => Promise<Config>;
+  // miniCSSExtractPluginPath?: string;
   miniCSSExtractPluginLoaderPath?: string;
 }
 
 type ConfigFn = (opts: IOpts) => Promise<Configuration>;
 
 const getConfig: ConfigFn = async (opts) => {
-  const {
-    cwd,
-    config,
-    type,
-    env,
-    entry,
-    hot,
-    port,
-    bundleImplementor = webpack,
-    modifyBabelOpts,
-    modifyBabelPresetOpts,
-    miniCSSExtractPluginPath,
-    miniCSSExtractPluginLoaderPath,
-  } = opts;
+  const { cwd, config, type, env, entry, bundleImplementor = webpack, miniCSSExtractPluginLoaderPath } = opts;
   const webpackConfig = new Config();
+
   /* 1. 配置环境 */
   webpackConfig.mode(env);
 
@@ -74,16 +66,30 @@ const getConfig: ConfigFn = async (opts) => {
   webpackConfig.devtool(isDev ? devtool || 'cheap-module-source-map' : devtool);
 
   /* devServer */
-  // webpackConfig.devServer
-  // webpackConfig.devServer.
+  if (isDev) {
+    /* 默认配置 */
+    const dfc: WebpackDevServer.Configuration = {
+      disableHostCheck: true,
+      port: 9000,
+      hot: true,
+      open: false,
+      openPage: ['login.html', 'monitoring.html', 'admin.html'],
+      noInfo: true,
+      contentBase: [path.resolve('public'), path.join(__dirname, config.outputPath || 'dist')],
+      compress: true,
+      inline: true,
+      historyApiFallback: true,
+    };
+    webpackConfig.devServer.merge(Object.assign({}, dfc, config.devServer || {}));
+  }
 
   /* 输出配置 */
   const useHash = config.hash && isProd;
   const absOutputPath = join(cwd, config.outputPath || 'dist');
   webpackConfig.output
     .path(absOutputPath)
-    .filename(useHash ? `[name].[contenthash:8].js` : `[name].js`)
-    .chunkFilename(useHash ? `[name].[contenthash:8].async.js` : `[name].js`)
+    .filename(useHash ? `js/[name].[contenthash:8].js` : `js/[name].js`)
+    .chunkFilename(useHash ? `js/[name].[contenthash:8].async.js` : `js/[name].js`)
     .publicPath((config.publicPath! as unknown) as string)
     // remove this after webpack@5
     // free memory of assets after emitting
@@ -111,6 +117,7 @@ const getConfig: ConfigFn = async (opts) => {
     ]);
 
   /* resolve.alias */
+  webpackConfig.resolve.alias.set('@', path.resolve(__dirname, 'src'));
   if (config.alias) {
     Object.keys(config.alias).forEach((key) => {
       webpackConfig.resolve.alias.set(key, config.alias![key]);
@@ -136,8 +143,22 @@ const getConfig: ConfigFn = async (opts) => {
   //   child_process: 'empty',
   // });
 
-  // todo
-  const babelOpts = {};
+  const babelOptions = new DefaultBabelOptions();
+  babelOptions.tap<IBabelConfig>((c) => ({
+    ...c,
+    isTS: true,
+    isReact: true,
+    isAntd: true,
+    modules: false,
+    runtimeHelper: true,
+  }));
+  babelOptions
+    .plugin('@umijs/babel-plugin-auto-css-modules')
+    .use(require.resolve('@umijs/babel-plugin-auto-css-modules'))
+    .options({
+      // flag: 'modules'
+    });
+  const babelOpts = babelOptions.toConfig();
 
   /* 脚本文件处理 */
   webpackConfig.module
@@ -209,8 +230,32 @@ const getConfig: ConfigFn = async (opts) => {
 
   /* plugins */
 
+  /* clean plugin */
+  webpackConfig.plugin('CleanWebpackPlugin').use(CleanWebpackPlugin, [{}]);
+
+  /* copy plugin */
+  webpackConfig.plugin('CopyPlugin').when(isDev, (handler) => {
+    handler.use(CopyPlugin, [
+      { patterns: [{ from: 'public' }, { from: 'src/assets', to: 'assets' }], options: { concurrency: 100 } },
+    ]);
+  });
+
   /* define plugin */
   webpackConfig.plugin('define').use(bundleImplementor.DefinePlugin, [resolveDefine(config.define || {})]);
+
+  // webpackConfig
+  //   .plugin('CssExtractPlugin')
+  //   .use(MiniCssExtractPlugin, [{ filename: 'css/[name].css', chunkFilename: '[id].css' }]);
+
+  webpackConfig
+    .plugin('HotModuleReplacementPlugin')
+    .when(isDev, (handler) => handler.use(webpack.HotModuleReplacementPlugin));
+
+  webpackConfig
+    .plugin('CopyPlugin')
+    .use(CopyPlugin, [
+      { patterns: [{ from: 'public' }, { from: 'src/assets', to: 'assets' }], options: { concurrency: 100 } },
+    ]);
 
   // progress plugin
   if (!isWebpack5 && process.env.PROGRESS !== 'none') {
@@ -218,23 +263,6 @@ const getConfig: ConfigFn = async (opts) => {
       .plugin('progress')
       .use(WebpackBar, [config.ssr ? { name: type === BundlerConfigType.ssr ? 'Server' : 'Client' } : {}]);
   }
-
-  /* copy plugin */
-  webpackConfig.plugin('copy').use(CopyPlugin, [
-    { patterns: [{ from: 'public', to: absOutputPath }], options: {} },
-    // [
-    //   existsSync(join(cwd, 'public')) && {
-    //     from: join(cwd, 'public'),
-    //     to: absOutputPath,
-    //   },
-    //   ...(config.copy
-    //     ? config.copy.map((from) => ({
-    //         from: join(cwd, from),
-    //         to: absOutputPath,
-    //       }))
-    //     : []),
-    // ].filter(Boolean),
-  ]);
 
   // error handler
   // if (process.env.FRIENDLY_ERROR !== 'none') {

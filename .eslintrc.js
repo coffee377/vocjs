@@ -16,7 +16,7 @@ module.exports = {
     'no-empty': 0,
     'no-unused-expressions': 0,
     'dot-notation': 0,
-    'global-require': 1,
+    'global-require': 0,
     'class-methods-use-this': 0,
   },
 };

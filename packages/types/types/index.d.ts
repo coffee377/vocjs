@@ -20,10 +20,10 @@ interface BaseIConfig {
     define?: {
         [key: string]: webpack.DefinePlugin.CodeValueObject;
     };
-    ssr?: any;
     hash?: boolean;
     outputPath?: string;
     publicPath?: string;
+    ssr?: any;
     [key: string]: any;
 }
 export declare type IConfig = WithFalse<BaseIConfig>;

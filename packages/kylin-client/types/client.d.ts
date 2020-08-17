@@ -1,4 +1,8 @@
-import { KylinConfig, QueryOptions, Result } from './types';
+/**
+ * This is the doc comment for client.ts
+ * @packageDocumentation
+ */
+import { KylinConfig, QueryOptions, Result } from "./types";
 export default class Client {
     private iConfig;
     constructor(config?: KylinConfig);
