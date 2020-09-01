@@ -133,6 +133,9 @@ class DefaultBabelOptions extends BabelOptions {
         }
         return true;
       })
+      .truthy((fn) => {
+        fn.use('@vocjs/babel-plugin-auto-css-modules');
+      })
       .tap<AutoCssModulesOptions, IBabelConfig>((options, config) => {
         if (typeof config.cssModules === 'boolean') {
           return options;
