@@ -7,6 +7,7 @@ import CopyPlugin from 'copy-webpack-plugin';
 import WebpackDevServer from 'webpack-dev-server';
 import { BabelOptions, DefaultBabelOptions, IBabelConfig } from '@vocjs/bundler-babel';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import resolveDefine from '../resolveDefine';
 
 export interface IOpts {
@@ -72,8 +73,7 @@ const getConfig: ConfigFn = async (opts) => {
       disableHostCheck: true,
       port: 9000,
       hot: true,
-      open: false,
-      openPage: ['login.html', 'monitoring.html', 'admin.html'],
+      open: true,
       noInfo: true,
       contentBase: [path.resolve('public'), path.join(__dirname, config.outputPath || 'dist')],
       compress: true,
@@ -169,7 +169,7 @@ const getConfig: ConfigFn = async (opts) => {
     .exclude.add(/node_modules/)
     .end()
     .use('babel-loader')
-    .loader(require.resolve('babel-loader'))
+    .loader('babel-loader')
     .options(babelOpts);
 
   // webpackConfig.module
@@ -243,9 +243,9 @@ const getConfig: ConfigFn = async (opts) => {
   /* define plugin */
   webpackConfig.plugin('define').use(bundleImplementor.DefinePlugin, [resolveDefine(config.define || {})]);
 
-  // webpackConfig
-  //   .plugin('CssExtractPlugin')
-  //   .use(MiniCssExtractPlugin, [{ filename: 'css/[name].css', chunkFilename: '[id].css' }]);
+  webpackConfig
+    .plugin('MiniCssExtractPlugin')
+    .use(MiniCssExtractPlugin, [{ filename: 'css/[name].css', chunkFilename: '[id].css' }]);
 
   webpackConfig
     .plugin('HotModuleReplacementPlugin')
