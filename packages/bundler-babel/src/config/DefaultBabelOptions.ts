@@ -10,12 +10,12 @@ enum PresetName {
 }
 
 enum PluginName {
-  // PROPOSAL_EXPORT_DEFAULT_FROM = 'proposal-export-default-from',
-  // PROPOSAL_EXPORT_NAMESPACE_FROM = 'proposal-export-namespace-from',
-  // PROPOSAL_DO_EXPRESSIONS = 'proposal-do-expressions',
-  // PROPOSAL_OPTIONAL_CHAINING = 'proposal-optional-chaining',
-  // PROPOSAL_DECORATORS = 'proposal-decorators',
-  // PROPOSAL_CLASS_PROPERTIES = 'proposal-class-properties',
+  PROPOSAL_EXPORT_DEFAULT_FROM = 'proposal-export-default-from',
+  PROPOSAL_EXPORT_NAMESPACE_FROM = 'proposal-export-namespace-from',
+  PROPOSAL_DO_EXPRESSIONS = 'proposal-do-expressions',
+  PROPOSAL_OPTIONAL_CHAINING = 'proposal-optional-chaining',
+  PROPOSAL_DECORATORS = 'proposal-decorators',
+  PROPOSAL_CLASS_PROPERTIES = 'proposal-class-properties',
   TRANSFORM_RUNTIME = 'transform-runtime',
   IMPORT = 'import',
   AUTO_CSS_MODULES = 'auto-css-modules',
@@ -98,13 +98,13 @@ class DefaultBabelOptions extends BabelOptions {
     //   .use(require.resolve('@babel/plugin-proposal-decorators'))
     //   .options({ legacy: true });
     //
-    // this.plugin(PluginName.PROPOSAL_CLASS_PROPERTIES)
-    //   .order(7)
-    //   .use(require.resolve('@babel/plugin-proposal-class-properties'))
-    //   .options({ loose: true });
+    this.plugin(PluginName.PROPOSAL_CLASS_PROPERTIES)
+      .order(7)
+      .use('@babel/plugin-proposal-class-properties')
+      .options({ loose: true });
 
     this.plugin(PluginName.TRANSFORM_RUNTIME)
-      .order(1)
+      // .order(1)
       .condition<IBabelConfig>((config) => {
         return config.runtimeHelper;
       })
@@ -114,7 +114,7 @@ class DefaultBabelOptions extends BabelOptions {
       .options({ corejs: 3 });
 
     this.plugin(PluginName.IMPORT)
-      .order(2)
+      // .order(2)
       .condition<IBabelConfig>((config) => config.isAntd)
       .truthy((fn) => {
         fn.use('babel-plugin-import');
@@ -126,7 +126,7 @@ class DefaultBabelOptions extends BabelOptions {
       });
 
     this.plugin(PluginName.AUTO_CSS_MODULES)
-      .order(3)
+      // .order(3)
       .condition<IBabelConfig>((config) => {
         if (config.cssModules !== undefined) {
           return !!config.cssModules;
