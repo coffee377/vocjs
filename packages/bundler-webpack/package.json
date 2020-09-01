@@ -1,6 +1,6 @@
 {
   "name": "@vocjs/bundler-webpack",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": " webpack 打包工具",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "@types/webpack": "^4.41.21",
     "@types/webpack-dev-server": "^3.11.0",
     "@types/webpackbar": "^4.0.0",
-    "@vocjs/bundler-babel": "^0.1.1",
+    "@vocjs/bundler-babel": "^0.1.0",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.2",
